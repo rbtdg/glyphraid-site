@@ -20,246 +20,229 @@
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700&display=swap">
 
 <style>
+/* ────────────────────────────────────────────────────────────────
+   方向（2026-09-02 v4，三版回爐後定案）：紙上美術館。
+   單一暖紙底、大號襯線標題、像素資產當藝術品陳列、
+   一個記憶點（山谷壁畫＋怪物遊行）、唯一的深色時刻留給價格木牌。
+   反面清單（slop 指南）：不做色帶交替、不做統一圓角卡片網格、
+   不做彩色警示框、不把顏色當設計。
+──────────────────────────────────────────────────────────────── */
 :root{
-  --paper:#FBF3E0;      /* 頁面基底：字卡奶油色 */
-  --paper-2:#F3E7CC;    /* 交替 band 的深一階 */
-  --card:#FFFDF6;       /* 卡片表面 */
-  --card-line:#D9C7A2;  /* 卡片邊 */
-  --ink:#3A2B1B;        /* 主文字：暖棕 */
-  --muted:#7d6c52;
-  --gold:#FFC93C;
-  --amber:#E8960F;      /* 按鈕與強調底 */
-  --amber-text:#A05E00; /* 奶油底上的強調字（夠深才讀得到） */
-  --green:#3E9B4F;
-  --teal:#0E6467;       /* 連結 */
-  --wood:#362717;       /* 價格面板：木牌棕 */
-  --wood-line:#57422a;
+  --paper:#FAF5E9;
+  --ink:#2E2115;
+  --muted:#8A7658;
+  --rule:#E4D9C2;
+  --gold:#F2B33D;
+  --amber-text:#9C5E00;
+  --wood:#2A1D10;
+  --wood-line:#4a3823;
+  --wood-text:#EFE3C8;
+  --tier0:#8E8E96; --tier1:#FF5A3C; --tier2:#F2C14E; --tier3:#4ADE80; --tier4:#A78BFA;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{
   margin:0;background:var(--paper);color:var(--ink);
   font-family:"Nunito Sans",-apple-system,"Helvetica Neue",Arial,sans-serif;
-  font-size:17px;line-height:1.65;
+  font-size:17px;line-height:1.7;
   -webkit-font-smoothing:antialiased;
 }
 img{max-width:100%;height:auto;display:block}
-a{color:var(--teal)}
-a:focus-visible,button:focus-visible{outline:3px solid var(--amber);outline-offset:3px;border-radius:4px}
-h1,h2,h3{font-family:"Baloo 2","Nunito Sans",sans-serif;line-height:1.15;margin:0;text-wrap:balance}
-.wrap{max-width:1080px;margin:0 auto;padding:0 22px}
-.hero-inner>*,.split>*{min-width:0} /* grid 子項 min-width:auto 會被大圖撐破 */
+a{color:var(--ink);text-decoration-color:var(--gold);text-decoration-thickness:2px;text-underline-offset:4px}
+a:hover{color:var(--amber-text)}
+a:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:2px}
+h1,h2{font-family:"Fraunces",Georgia,serif;font-weight:600;line-height:1.08;margin:0;text-wrap:balance;letter-spacing:-.01em}
+.wrap{max-width:1060px;margin:0 auto;padding-left:24px;padding-right:24px}
+.grid>*{min-width:0}
 
-/* ---------- hero：app 首頁的藍天綠谷 ---------- */
-.hero{
-  position:relative;
-  background:#2f8fd9 url("assets/bg_valley_wide.webp") center / cover no-repeat;
+/* ── 頂欄 ── */
+.topbar{border-bottom:2px solid var(--ink)}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;padding-top:14px;padding-bottom:14px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.brand img{width:30px;height:30px;border-radius:7px;image-rendering:pixelated}
+.brand span{font-family:"Fraunces",serif;font-weight:700;font-size:1.15rem;letter-spacing:.01em}
+.topbar a.cta{font-weight:700;font-size:.95rem}
+
+/* ── hero ── */
+.hero .wrap{
+  display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center;
+  padding-top:84px;padding-bottom:84px;
 }
-.hero::after{ /* 像素城齒收邊：hero 底部被奶油色一格一格咬進來 */
-  content:"";position:absolute;left:0;right:0;bottom:-1px;height:20px;
-  background-image:
-    linear-gradient(var(--paper),var(--paper)),
-    linear-gradient(var(--paper),var(--paper));
-  background-size:36px 10px,36px 10px;
-  background-position:0 10px,18px 0;
-  background-repeat:repeat-x;
-}
-.hero-inner{
-  position:relative;display:grid;grid-template-columns:1.12fr .88fr;gap:36px;
-  align-items:center;padding-top:56px;padding-bottom:64px;
-}
-.hero-copy .logo{width:min(400px,94%);height:auto;image-rendering:pixelated;margin-bottom:22px;
-  filter:drop-shadow(0 4px 0 rgba(58,43,27,.35));}
-.hero h1{
-  font-size:clamp(2rem,4.6vw,3rem);font-weight:800;color:#fff;margin-bottom:12px;
-  text-shadow:0 2px 0 rgba(30,60,90,.45), 0 6px 18px rgba(30,60,90,.35);
-}
-.hero .sub{
-  font-size:1.14rem;font-weight:700;color:#fff;max-width:32rem;margin:0 0 24px;
-  text-shadow:0 1px 0 rgba(30,60,90,.5), 0 4px 14px rgba(30,60,90,.4);
-}
-.cta-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:12px}
-.badge img{height:58px;width:auto;display:block;border-radius:9px;box-shadow:0 4px 14px rgba(20,50,80,.35)}
-.ios-soon{
-  display:flex;align-items:center;min-height:58px;padding:8px 18px;
-  background:rgba(255,255,255,.88);border:2px dashed #9b7c3f;border-radius:10px;color:#6b5227;
-  font-size:.85rem;font-weight:700;letter-spacing:.02em;
-}
-.price-line{
-  display:inline-block;background:rgba(255,255,255,.9);border-radius:999px;
-  padding:7px 16px;font-size:.92rem;font-weight:700;color:var(--ink);margin:4px 0 22px;
-}
-.price-line b{color:var(--amber-text)}
-.qr-box{
-  display:inline-flex;align-items:center;gap:14px;background:var(--card);
-  border:2px solid var(--card-line);border-radius:14px;padding:10px 16px 10px 10px;
-  box-shadow:0 6px 18px rgba(20,50,80,.25);
-}
-.qr-box img{width:84px;height:84px;border-radius:8px}
-.qr-box span{font-size:.85rem;font-weight:700;color:var(--muted);max-width:11rem;line-height:1.45}
+.hero h1{font-size:clamp(2.5rem,5.4vw,3.9rem);margin-bottom:22px}
+.hero h1 em{font-style:italic;font-weight:500;color:var(--amber-text)}
+.hero .sub{font-size:1.14rem;color:var(--ink);max-width:30rem;margin:0 0 34px}
+.cta-row{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-bottom:14px}
+.badge img{height:56px;width:auto;display:block;border-radius:8px;transition:transform .18s ease}
+.badge:hover img{transform:translateY(-2px)}
+.ios-note{font-size:.9rem;color:var(--muted);font-weight:600}
+.price-note-hero{font-size:.95rem;color:var(--muted);margin:0 0 30px}
+.price-note-hero b{color:var(--ink)}
+.qr-box{display:inline-flex;align-items:center;gap:14px}
+.qr-box img{width:76px;height:76px;border:2px solid var(--ink);border-radius:6px}
+.qr-box span{font-size:.85rem;color:var(--muted);max-width:11rem;line-height:1.5}
 
 .poster{
-  width:min(320px,80vw);margin:0 auto;border-radius:26px;overflow:hidden;
-  border:4px solid #fff;
-  box-shadow:0 24px 60px rgba(20,50,80,.4);
+  width:min(300px,78vw);margin:0 auto;border-radius:22px;overflow:hidden;
+  border:3px solid var(--ink);
+  box-shadow:14px 14px 0 rgba(46,33,21,.14);
+  transform:rotate(-1.6deg);transition:transform .25s ease,box-shadow .25s ease;
+}
+.poster:hover{transform:rotate(0deg) translateY(-4px);box-shadow:16px 18px 0 rgba(46,33,21,.16)}
+.poster.tilt-r{transform:rotate(1.6deg)}
+.poster.tilt-r:hover{transform:rotate(0deg) translateY(-4px)}
+
+/* ── 山谷壁畫（記憶點）：全幅畫框,怪物站在草地上 ── */
+.mural{position:relative;border-top:3px solid var(--ink);border-bottom:3px solid var(--ink)}
+.mural .bg{width:100%;height:min(360px,44vw);object-fit:cover;object-position:center bottom}
+.crew{
+  position:absolute;left:0;right:0;bottom:max(18px,3vw);
+  display:flex;justify-content:center;align-items:flex-end;gap:clamp(16px,5vw,64px);
+  padding:0 24px;
+}
+.crew img{height:clamp(52px,7.5vw,96px);width:auto;image-rendering:pixelated;
+  filter:drop-shadow(0 5px 4px rgba(31,50,18,.35))}
+.mural-cap{
+  text-align:center;font-family:"Fraunces",serif;font-style:italic;font-weight:500;
+  font-size:.98rem;color:var(--muted);padding:16px 24px 0;margin:0;
 }
 
-/* ---------- 通用 ---------- */
-section{padding:72px 0}
-.eyebrow{
-  font-family:"Baloo 2",sans-serif;font-weight:800;font-size:.85rem;letter-spacing:.2em;
-  text-transform:uppercase;color:var(--amber-text);margin:0 0 8px;
+/* ── 章節通則：留白做層次,不用色帶 ── */
+section{padding-top:96px;padding-bottom:0}
+.kicker{
+  font-size:.8rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--amber-text);margin:0 0 14px;
 }
-.eyebrow::before{
-  content:"";display:inline-block;width:8px;height:8px;background:var(--amber);
-  margin-right:9px;transform:rotate(45deg);vertical-align:1px;
-}
-h2{font-size:clamp(1.6rem,3.4vw,2.25rem);font-weight:800;color:var(--ink);margin-bottom:12px}
-.lede{font-size:1.08rem;max-width:38rem;margin:0 0 6px}
-.mutedp{color:var(--muted);max-width:38rem;margin:0}
-.band-2{background:var(--paper-2)}
-.split{display:grid;grid-template-columns:.88fr 1.12fr;gap:48px;align-items:center}
-.split.rev{grid-template-columns:1.12fr .88fr}
+h2{font-size:clamp(1.9rem,3.6vw,2.6rem);margin-bottom:16px}
+.lede{font-size:1.12rem;max-width:36rem;margin:0 0 10px}
+.mutedp{color:var(--muted);max-width:36rem;margin:0}
 
-/* ---------- 循環三步（打怪→金幣→寶物） ---------- */
-.steps{display:grid;gap:14px;margin-top:26px}
-.step{
-  display:flex;gap:16px;align-items:flex-start;
-  background:var(--card);border:2px solid var(--card-line);border-radius:16px;padding:16px 18px;
-  box-shadow:0 4px 0 rgba(58,43,27,.12);
-}
-.step .num{
-  flex:none;width:2rem;height:2rem;border-radius:50%;display:grid;place-items:center;
-  background:var(--gold);border:2px solid #c98a00;color:#5a3c00;
-  font-family:"Baloo 2",sans-serif;font-weight:800;font-size:1rem;
-}
-.step p{margin:0;font-size:.98rem}
-.step b{color:var(--amber-text)}
+/* ── 循環：編輯部式三欄,大號襯線數字,不做盒子 ── */
+.loop{display:grid;grid-template-columns:repeat(3,1fr);gap:44px;margin-top:52px}
+.loop>div{border-top:2px solid var(--ink);padding-top:18px}
+.loop .n{font-family:"Fraunces",serif;font-weight:700;font-size:3rem;line-height:1;color:var(--gold);
+  -webkit-text-stroke:1.5px var(--ink)}
+.loop h3{font-family:"Fraunces",serif;font-weight:600;font-size:1.4rem;margin:10px 0 8px}
+.loop p{margin:0;font-size:.98rem;color:var(--ink)}
+.loop p b{color:var(--amber-text)}
 
-/* 可愛怪遊行 */
-.meadow{
-  margin-top:48px;border-radius:26px;padding:30px 20px 16px;
-  background:linear-gradient(180deg,#8CCB5B 0%,#63AC3E 70%,#579A36 100%);
-  border:2px solid #4a8c30;box-shadow:inset 0 4px 0 #a4dd77, 0 6px 0 rgba(58,43,27,.15);
+/* ── 掌握度：一條五色光譜脊椎 ── */
+.spine{position:relative;margin-top:64px;padding-top:10px}
+.spine .track{
+  position:absolute;top:19px;left:8%;right:8%;height:4px;border-radius:2px;
+  background:linear-gradient(90deg,var(--tier0),var(--tier1),var(--tier2),var(--tier3),var(--tier4));
 }
-.mon-row{display:flex;gap:30px;align-items:flex-end;justify-content:center;flex-wrap:wrap}
-.mon-row img{height:96px;width:auto;image-rendering:pixelated;filter:drop-shadow(0 6px 6px rgba(31,68,18,.35))}
-.mon-cap{text-align:center;font-size:.88rem;font-weight:800;color:#245117;margin-top:12px}
+.spine .stops{display:flex;position:relative}
+.stop{flex:1;text-align:center}
+.stop .dot{width:22px;height:22px;border-radius:50%;margin:0 auto;border:3px solid var(--paper);
+  box-shadow:0 0 0 2px var(--ink)}
+.stop:nth-child(1) .dot{background:var(--tier0)}
+.stop:nth-child(2) .dot{background:var(--tier1)}
+.stop:nth-child(3) .dot{background:var(--tier2)}
+.stop:nth-child(4) .dot{background:var(--tier3)}
+.stop:nth-child(5) .dot{background:var(--tier4);transform:scale(1.25)}
+.stop .name{font-family:"Fraunces",serif;font-weight:600;font-size:1.02rem;margin-top:14px}
+.stop:nth-child(5) .name{color:#6d4fd1}
+.stop .sub{font-size:.8rem;color:var(--muted);margin-top:2px}
 
-/* ---------- 掌握度五階 ---------- */
-.tiers{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:30px}
-.tier{
-  border-radius:14px;padding:16px 8px 13px;text-align:center;border:2px solid;
-  font-family:"Baloo 2",sans-serif;font-weight:800;
-}
-.tier .dot{width:14px;height:14px;border-radius:50%;margin:0 auto 8px;border:2px solid rgba(58,43,27,.25)}
-.tier .name{font-size:.88rem;line-height:1.2}
-/* 五階顏色＝遊戲內 TIER_COLORS 同一把尺（灰/橘紅/琥珀/綠/紫） */
-.tier{background:var(--card);color:var(--ink)}
-.t0{border-color:#8E8E96}.t0 .dot{background:#8E8E96}.t0 .name{color:#6d6d75}
-.t1{border-color:#FF5A3C}.t1 .dot{background:#FF5A3C}.t1 .name{color:#c23a22}
-.t2{border-color:#F2C14E}.t2 .dot{background:#F2C14E}.t2 .name{color:#a3761a}
-.t3{border-color:#4ADE80}.t3 .dot{background:#4ADE80}.t3 .name{color:#1f8f4e}
-.t4{border-color:#A78BFA;background:#F4EFFF;box-shadow:0 4px 0 rgba(167,139,250,.4)}.t4 .dot{background:#A78BFA}.t4 .name{color:#6d4fd1}
-.tier-arrow{display:flex;justify-content:space-between;font-size:.8rem;font-weight:800;color:var(--muted);margin-top:8px}
-
-/* ---------- 題型 ---------- */
-.qtypes{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:28px}
-.qtype{
-  background:var(--card);border:2px solid var(--card-line);border-radius:16px;padding:20px;
-  box-shadow:0 4px 0 rgba(58,43,27,.12);
-}
-.qtype h3{font-size:1.15rem;margin-bottom:4px;color:var(--amber-text)}
-.qtype p{margin:0;font-size:.95rem;color:var(--ink)}
+/* ── 題型：三欄文字,細節靠字型不靠框 ── */
+.qtypes{display:grid;grid-template-columns:repeat(3,1fr);gap:44px;margin-top:48px}
+.qtypes>div{border-top:2px solid var(--ink);padding-top:16px}
+.qtypes h3{font-family:"Fraunces",serif;font-weight:600;font-size:1.35rem;margin:0 0 6px}
+.qtypes .th{font-family:"Fraunces",serif;font-style:italic;font-size:1.5rem;line-height:1.3;margin:0 0 6px;color:var(--amber-text)}
+.qtypes p{margin:0;font-size:.96rem;color:var(--muted)}
 .ladder{
-  margin-top:22px;background:var(--card);border:2px solid var(--green);border-radius:16px;
-  padding:18px 22px;font-size:1rem;
+  margin-top:52px;max-width:44rem;
+  font-family:"Fraunces",serif;font-size:1.3rem;line-height:1.5;font-weight:500;
 }
-.ladder b{color:var(--green)}
+.ladder b{color:var(--amber-text);font-weight:600}
 
-/* ---------- 價格（木牌） ---------- */
+/* ── 價格：全頁唯一的深色塊 ── */
+.pricing-head{text-align:center}
 .price-panel{
-  max-width:680px;margin:36px auto 0;background:var(--wood);color:#F3E9D2;
-  border:2px solid var(--wood-line);border-radius:22px;overflow:hidden;
-  box-shadow:0 24px 60px rgba(58,43,27,.35);
+  max-width:660px;margin:44px auto 0;background:var(--wood);color:var(--wood-text);
+  border:3px solid var(--ink);border-radius:20px;overflow:hidden;
+  box-shadow:16px 16px 0 rgba(46,33,21,.14);
 }
-.price-head{
-  display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;
-  padding:28px 34px 20px;border-bottom:1px solid var(--wood-line);
-}
-.price-head .big{font-family:"Baloo 2",sans-serif;font-weight:800;font-size:3.1rem;color:var(--gold);line-height:1}
-.price-head .big small{font-size:1.05rem;color:#c9b998;font-weight:700;margin-left:10px;white-space:nowrap}
-.price-list{list-style:none;margin:0;padding:24px 34px;counter-reset:pli}
-.price-list li{display:flex;gap:16px;padding:8px 0;font-size:.98rem}
+.price-head{display:flex;align-items:baseline;gap:12px;padding:30px 36px 20px;border-bottom:1px solid var(--wood-line)}
+.price-head .big{font-family:"Fraunces",serif;font-weight:700;font-size:3.4rem;color:var(--gold);line-height:1}
+.price-head .big small{font-family:"Nunito Sans",sans-serif;font-size:1rem;color:#bfae8d;font-weight:700;margin-left:10px;white-space:nowrap}
+.price-list{list-style:none;margin:0;padding:26px 36px;counter-reset:pli}
+.price-list li{display:flex;gap:18px;padding:8px 0;font-size:.98rem}
 .price-list li::before{
   content:counter(pli,decimal-leading-zero);counter-increment:pli;
-  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.8rem;color:var(--gold);
-  padding-top:.25em;min-width:2em;
+  font-family:"Fraunces",serif;font-size:.9rem;color:var(--gold);padding-top:.15em;min-width:2em;
 }
 .price-list b{color:var(--gold)}
-.price-cta{padding:4px 34px 30px}
-.price-cta .ios-soon{background:rgba(255,255,255,.08);border-color:#7a6244;color:#c9b998}
-.price-note{font-size:.85rem;color:#c9b998;margin:14px 0 0}
+.price-cta{padding:8px 36px 32px}
+.price-cta .cta-row{margin-bottom:0}
+.price-cta .ios-note{color:#bfae8d}
+.price-note{font-size:.85rem;color:#bfae8d;margin:16px 0 0}
 
-/* ---------- footer ---------- */
-footer{border-top:2px solid var(--card-line);padding:52px 0 60px;background:var(--paper)}
-.foot-inner{display:flex;gap:28px;align-items:center;flex-wrap:wrap}
-.foot-inner img{height:96px;width:auto;image-rendering:pixelated}
+/* ── footer ── */
+footer{margin-top:96px;border-top:3px solid var(--ink)}
+.foot-inner{display:flex;gap:32px;align-items:center;flex-wrap:wrap;padding-top:52px;padding-bottom:64px}
+.foot-inner img{height:104px;width:auto;image-rendering:pixelated}
 .foot-copy{flex:1;min-width:260px}
+.foot-copy .solo{font-family:"Fraunces",serif;font-style:italic;font-weight:500;font-size:1.2rem;margin:0 0 8px}
 .foot-copy p{margin:0 0 6px;color:var(--muted);font-size:.95rem}
-.foot-copy .solo{color:var(--ink);font-weight:700;font-size:1.02rem}
-.foot-links{display:flex;gap:22px;flex-wrap:wrap;margin-top:12px;font-size:.9rem}
+.foot-links{display:flex;gap:26px;flex-wrap:wrap;margin-top:14px;font-size:.9rem}
+.foot-links a{color:var(--muted)}
 
-/* ---------- RWD ---------- */
-@media (max-width:900px){
-  .hero{background:#2f8fd9 url("assets/bg_valley.webp") center top / cover no-repeat}
-  .hero-inner,.split,.split.rev{grid-template-columns:1fr;gap:40px}
-  .hero-inner{padding-top:44px;padding-bottom:52px}
-  .qr-box{display:none}
-  .split .poster,.split.rev .poster{order:-1}
-  .tiers{grid-template-columns:repeat(5,1fr);gap:6px}
-  .tier{padding:10px 4px 9px}
-  .tier .name{font-size:.68rem}
-  .tier .dot{width:10px;height:10px}
-}
-@media (hover:hover){
-  .step,.qtype,.tier,.badge img{transition:transform .18s ease,box-shadow .18s ease}
-  .step:hover,.qtype:hover{transform:translateY(-3px);box-shadow:0 7px 0 rgba(58,43,27,.16)}
-  .tier:hover{transform:translateY(-3px)}
-  .badge:hover img{transform:translateY(-2px);box-shadow:0 8px 20px rgba(20,50,80,.4)}
-}
+/* ── 動態：少而有目的 ── */
 @media (prefers-reduced-motion:no-preference){
-  .hero .poster{animation:float 7s ease-in-out infinite}
-  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-  .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
+  .reveal{opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s ease}
   .reveal.in{opacity:1;transform:none}
+  .poster.reveal{transform:rotate(-1.6deg) translateY(14px)}
+  .poster.reveal.in{transform:rotate(-1.6deg)}
+  .poster.tilt-r.reveal{transform:rotate(1.6deg) translateY(14px)}
+  .poster.tilt-r.reveal.in{transform:rotate(1.6deg)}
+}
+
+/* ── RWD ── */
+@media (max-width:900px){
+  .hero .wrap{grid-template-columns:1fr;gap:52px;padding-top:56px;padding-bottom:64px}
+  .qr-box{display:none}
+  .loop,.qtypes{grid-template-columns:1fr;gap:32px}
+  .split{grid-template-columns:1fr !important;gap:44px}
+  .split .poster{order:-1}
+  .stop .name{font-size:.78rem}
+  .stop .sub{display:none}
+  .spine .track{left:9%;right:9%}
+  .ladder{font-size:1.12rem}
+  .mural .bg{height:240px}
 }
 </style>
 </head>
 <body>
 
+<nav class="topbar">
+  <div class="wrap">
+    <a class="brand" href="#"><img src="assets/favicon.png" alt="" width="64" height="64"><span>Glyphraid</span></a>
+    <a class="cta" href="#pricing">Get the app</a>
+  </div>
+</nav>
+
 <header class="hero">
-  <div class="wrap hero-inner">
-    <div class="hero-copy">
-      <img class="logo" src="assets/logo.png" alt="Glyphraid" width="474" height="132">
-      <h1>Thai flashcards, with monsters to fight.</h1>
+  <div class="wrap grid">
+    <div>
+      <h1>Thai flashcards, with <em>monsters</em> to fight.</h1>
       <p class="sub">Answer a card, deal damage. Earn coins, collect relics, clear dungeons. Underneath it all, a real spaced repetition system does the remembering for you.</p>
 
       <div class="cta-row">
         <a class="badge" href="https://play.google.com/store/apps/details?id=com.terryouyang.glyphraid&amp;referrer=utm_source%3Dglyphraid_site%26utm_medium%3Dweb" aria-label="Get it on Google Play">
           <img src="assets/badge-play.png" alt="Get it on Google Play" width="646" height="250">
         </a>
-        <!-- TODO(ios-live): iOS 上架後,把下面這顆 dashed 佔位換成官方 badge:
+        <!-- TODO(ios-live): iOS 上架後,把下面這行文字換成官方 badge:
         <a class="badge" href="https://apps.apple.com/app/idAPP_STORE_ID" aria-label="Download on the App Store">
-          <img src="assets/badge-appstore.svg" alt="Download on the App Store" height="58">
+          <img src="assets/badge-appstore.svg" alt="Download on the App Store" height="56">
         </a>
         -->
-        <span class="ios-soon">iPhone version is in App&nbsp;Store review · days away</span>
+        <span class="ios-note">iPhone version is in App Store review, days away.</span>
       </div>
-      <p class="price-line"><b>US$9.99 once</b> unlocks everything · free to try · no subscription, no ads</p>
+      <p class="price-note-hero">Free to download. <b>US$9.99, once,</b> unlocks everything. No subscription, no ads.</p>
 
       <div class="qr-box">
         <img src="assets/qr.png" alt="QR code linking to this page" width="264" height="264">
@@ -273,43 +256,50 @@ footer{border-top:2px solid var(--card-line);padding:52px 0 60px;background:var(
   </div>
 </header>
 
-<section>
-  <div class="wrap split rev">
-    <div>
-      <p class="eyebrow">The loop</p>
-      <h2>Fight. Earn. Collect.</h2>
-      <p class="mutedp">This is where it stops being a plain flashcard app.</p>
-      <div class="steps">
-        <div class="step"><span class="num">1</span><p><b>Fight.</b> Every monster holds a Thai card. Answer it and you strike. Miss it and it hits you back.</p></div>
-        <div class="step"><span class="num">2</span><p><b>Earn.</b> Winning fights pays coins.</p></div>
-        <div class="step"><span class="num">3</span><p><b>Collect.</b> The shop turns coins into relics: permanent unlocks that show up in your runs from then on. Keep learning and new dungeons open up, each with its own monsters.</p></div>
-      </div>
-    </div>
-    <div class="poster">
-      <img src="assets/poster_relics.webp" alt="A shelf of pixel art relics collected across runs" width="720" height="1564" loading="lazy">
-    </div>
+<div class="mural">
+  <img class="bg" src="assets/bg_valley_wide.webp" alt="A sunny pixel art valley" width="1536" height="867">
+  <div class="crew" aria-hidden="true">
+    <img src="assets/mon_capfiend.png" alt="" width="200" height="154">
+    <img src="assets/mon_glyphmite.png" alt="" width="200" height="170">
+    <img src="assets/mon_tomeshell.png" alt="" width="200" height="144">
+    <img src="assets/mon_pearlsnail.png" alt="" width="200" height="199">
+    <img src="assets/mon_sporetoad.png" alt="" width="190" height="200">
   </div>
+</div>
+<p class="mural-cap">Five of the eighty monsters you will meet in the dungeons.</p>
+
+<section>
   <div class="wrap">
-    <div class="meadow">
-    <div class="mon-row" aria-hidden="true">
-      <img src="assets/mon_cometcub.png" alt="" width="160" height="200">
-      <img src="assets/mon_capfiend.png" alt="" width="200" height="154">
-      <img src="assets/mon_glyphmite.png" alt="" width="200" height="170">
-      <img src="assets/mon_pearlsnail.png" alt="" width="200" height="199">
-      <img src="assets/mon_frostfawn.png" alt="" width="104" height="200">
-    </div>
-    <p class="mon-cap">A few of the 80 monsters waiting in the dungeons.</p>
+    <p class="kicker">The loop</p>
+    <h2>Fight. Earn. Collect.</h2>
+    <p class="mutedp">This is where it stops being a plain flashcard app.</p>
+    <div class="loop">
+      <div>
+        <div class="n">1</div>
+        <h3>Fight</h3>
+        <p>Every monster holds a Thai card. Answer it and you strike. Miss it and it hits you back.</p>
+      </div>
+      <div>
+        <div class="n">2</div>
+        <h3>Earn</h3>
+        <p>Winning fights pays coins.</p>
+      </div>
+      <div>
+        <div class="n">3</div>
+        <h3>Collect</h3>
+        <p>The shop turns coins into relics: <b>permanent unlocks</b> that show up in your runs from then on. Keep learning and new dungeons open up, each with its own monsters.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="band-2">
-  <div class="wrap split">
-    <div class="poster">
+<section>
+  <div class="wrap grid split" style="display:grid;grid-template-columns:.85fr 1.15fr;gap:64px;align-items:center">
+    <div class="poster tilt-r">
       <img src="assets/poster_alphabet.webp" alt="A Thai flashcard for the letter ko kai, standing in a pixel art temple" width="720" height="1564" loading="lazy">
     </div>
     <div>
-      <p class="eyebrow">New to Thai?</p>
+      <p class="kicker">New to Thai?</p>
       <h2>Complete beginner? Start here.</h2>
       <p class="lede">Glyphraid starts from the very first letter. All 44 consonants and 34 vowels and tones, each with clear audio.</p>
       <p class="mutedp">Then 1008 cards of real words across 33 themes: greetings, numbers, food, getting around, shopping, health, work and more. Works offline. Nothing to set up, no decks to build.</p>
@@ -319,44 +309,43 @@ footer{border-top:2px solid var(--card-line);padding:52px 0 60px;background:var(
 
 <section>
   <div class="wrap">
-    <p class="eyebrow">Mastery</p>
+    <p class="kicker">Mastery</p>
     <h2>It tracks how well you actually know each word.</h2>
     <p class="lede">Every card climbs five levels, based on your correct answers and the days between them.</p>
-    <p class="mutedp">Three clean sessions in a row make a card Familiar. Get it right again a day later, it is Mastered. Three days after that, Proficient. And losing a run never touches this: mastery does not go backwards.</p>
+    <p class="mutedp">Three clean sessions in a row make a card Familiar. Get it right again a day later, it is Mastered. Three days after that, Proficient. Losing a run never touches this. Mastery does not go backwards.</p>
 
-    <div class="tiers" aria-label="The five mastery levels">
-      <div class="tier t0"><div class="dot"></div><div class="name">New</div></div>
-      <div class="tier t1"><div class="dot"></div><div class="name">Learning</div></div>
-      <div class="tier t2"><div class="dot"></div><div class="name">Familiar</div></div>
-      <div class="tier t3"><div class="dot"></div><div class="name">Mastered</div></div>
-      <div class="tier t4"><div class="dot"></div><div class="name">Proficient</div></div>
-    </div>
-    <div class="tier-arrow"><span>first meeting</span><span>long term memory</span></div>
-  </div>
-</section>
-
-<section class="band-2">
-  <div class="wrap">
-    <p class="eyebrow">Question types</p>
-    <h2>It asks harder as you get better.</h2>
-    <p class="lede">Three ways a card can be asked:</p>
-    <div class="qtypes">
-      <div class="qtype"><h3>Read</h3><p>See the Thai, answer the meaning.</p></div>
-      <div class="qtype"><h3>Listening</h3><p>Hear the word, answer the meaning.</p></div>
-      <div class="qtype"><h3>Reverse</h3><p>See the meaning, type it in Thai.</p></div>
-    </div>
-    <div class="ladder">
-      <b>The training wheels come off on their own.</b> A new card gives you four choices to pick from. Once that card reaches Familiar, the choices disappear and you type the answer yourself.
+    <div class="spine" aria-label="The five mastery levels, in the same colors the app uses">
+      <div class="track"></div>
+      <div class="stops">
+        <div class="stop"><div class="dot"></div><div class="name">New</div><div class="sub">first meeting</div></div>
+        <div class="stop"><div class="dot"></div><div class="name">Learning</div><div class="sub">warming up</div></div>
+        <div class="stop"><div class="dot"></div><div class="name">Familiar</div><div class="sub">three clean sessions</div></div>
+        <div class="stop"><div class="dot"></div><div class="name">Mastered</div><div class="sub">right again next day</div></div>
+        <div class="stop"><div class="dot"></div><div class="name">Proficient</div><div class="sub">three days later</div></div>
+      </div>
     </div>
   </div>
 </section>
 
 <section>
   <div class="wrap">
-    <p class="eyebrow" style="text-align:center">Pricing</p>
-    <h2 style="text-align:center">One price. Everything. Forever.</h2>
+    <p class="kicker">Question types</p>
+    <h2>It asks harder as you get better.</h2>
+    <div class="qtypes">
+      <div><p class="th" lang="th">ขอบคุณ</p><h3>Read</h3><p>See the Thai, answer the meaning.</p></div>
+      <div><p class="th">&#9834; &#9834; &#9834;</p><h3>Listening</h3><p>Hear the word, answer the meaning.</p></div>
+      <div><p class="th">thank you?</p><h3>Reverse</h3><p>See the meaning, type it in Thai.</p></div>
+    </div>
+    <p class="ladder">The training wheels come off on their own. A new card gives you four choices to pick from. Once that card reaches <b>Familiar</b>, the choices disappear and you type the answer yourself.</p>
+  </div>
+</section>
 
-    <div class="price-panel">
+<section id="pricing">
+  <div class="wrap pricing-head">
+    <p class="kicker">Pricing</p>
+    <h2>One price. Everything. Forever.</h2>
+
+    <div class="price-panel" style="text-align:left">
       <div class="price-head">
         <div class="big">US$9.99<small>one time</small></div>
       </div>
@@ -372,7 +361,7 @@ footer{border-top:2px solid var(--card-line);padding:52px 0 60px;background:var(
           <a class="badge" href="https://play.google.com/store/apps/details?id=com.terryouyang.glyphraid&amp;referrer=utm_source%3Dglyphraid_site%26utm_medium%3Dweb" aria-label="Get it on Google Play">
             <img src="assets/badge-play.png" alt="Get it on Google Play" width="646" height="250">
           </a>
-          <span class="ios-soon">iPhone version · days away</span>
+          <span class="ios-note">iPhone version, days away.</span>
         </div>
         <p class="price-note">Shake your phone anywhere in the app to report a bug or ask for something. Feedback really does change what gets built next.</p>
       </div>
@@ -389,17 +378,17 @@ footer{border-top:2px solid var(--card-line);padding:52px 0 60px;background:var(
       <div class="foot-links">
         <a href="privacy.html">Privacy Policy</a>
         <a href="mailto:terry@glyphraid.com">terry@glyphraid.com</a>
-        <span style="color:var(--muted)">© 2026 Glyphraid</span>
+        <span style="color:var(--muted)">&copy; 2026 Glyphraid</span>
       </div>
     </div>
   </div>
 </footer>
 
 <script>
-// 進場 reveal：尊重「減少動態」,舊瀏覽器直接顯示
+// 進場 reveal：少量、尊重「減少動態」
 (function(){
   if(!('IntersectionObserver' in window))return;
-  var els=document.querySelectorAll('.split>div,.wrap>.tiers,.wrap>.qtypes,.price-panel,.meadow,.ladder');
+  var els=document.querySelectorAll('.loop>div,.spine,.qtypes>div,.price-panel,.poster');
   els.forEach(function(el){el.classList.add('reveal')});
   var io=new IntersectionObserver(function(entries){
     entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}});
