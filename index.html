@@ -96,18 +96,25 @@ h1,h2{font-family:"Fraunces",Georgia,serif;font-weight:600;line-height:1.08;marg
 
 /* ── 山谷壁畫（記憶點）：全幅畫框,怪物站在草地上 ── */
 .mural{position:relative;border-top:3px solid var(--ink);border-bottom:3px solid var(--ink)}
-.mural .bg{width:100%;height:min(360px,44vw);object-fit:cover;object-position:center bottom}
+.mural .bg{width:100%;height:min(400px,48vw);object-fit:cover;object-position:center 30%}
 .crew{
-  position:absolute;left:0;right:0;bottom:max(18px,3vw);
-  display:flex;justify-content:center;align-items:flex-end;gap:clamp(16px,5vw,64px);
+  position:absolute;left:0;right:0;bottom:14%;
+  display:flex;justify-content:center;align-items:flex-end;gap:clamp(20px,5.5vw,72px);
   padding:0 24px;
 }
-.crew img{height:clamp(52px,7.5vw,96px);width:auto;image-rendering:pixelated;
-  filter:drop-shadow(0 5px 4px rgba(31,50,18,.35))}
+.crew img{height:clamp(60px,9vw,120px);width:auto;image-rendering:pixelated;
+  filter:drop-shadow(0 6px 5px rgba(31,68,18,.3))}
 .mural-cap{
   text-align:center;font-family:"Fraunces",serif;font-style:italic;font-weight:500;
   font-size:.98rem;color:var(--muted);padding:16px 24px 0;margin:0;
 }
+
+/* ── 大數字帶 ── */
+.statline{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:64px;text-align:center}
+.statline b{display:block;font-family:"Fraunces",serif;font-weight:700;font-size:clamp(2.2rem,4.6vw,3.4rem);
+  line-height:1;color:var(--ink);font-variant-numeric:tabular-nums}
+.statline span{display:block;font-size:.85rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);margin-top:8px}
 
 /* ── 章節通則：留白做層次,不用色帶 ── */
 section{padding-top:96px;padding-bottom:0}
@@ -166,9 +173,9 @@ h2{font-size:clamp(1.9rem,3.6vw,2.6rem);margin-bottom:16px}
   border:3px solid var(--ink);border-radius:20px;overflow:hidden;
   box-shadow:16px 16px 0 rgba(46,33,21,.14);
 }
-.price-head{display:flex;align-items:baseline;gap:12px;padding:30px 36px 20px;border-bottom:1px solid var(--wood-line)}
-.price-head .big{font-family:"Fraunces",serif;font-weight:700;font-size:3.4rem;color:var(--gold);line-height:1}
-.price-head .big small{font-family:"Nunito Sans",sans-serif;font-size:1rem;color:#bfae8d;font-weight:700;margin-left:10px;white-space:nowrap}
+.price-head{padding:30px 36px 20px;border-bottom:1px solid var(--wood-line)}
+.price-head .big{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;font-family:"Fraunces",serif;font-weight:700;font-size:clamp(2.4rem,7vw,3.4rem);color:var(--gold);line-height:1}
+.price-head .big small{font-family:"Nunito Sans",sans-serif;font-size:1rem;color:#bfae8d;font-weight:700;white-space:nowrap}
 .price-list{list-style:none;margin:0;padding:26px 36px;counter-reset:pli}
 .price-list li{display:flex;gap:18px;padding:8px 0;font-size:.98rem}
 .price-list li::before{
@@ -193,6 +200,14 @@ footer{margin-top:96px;border-top:3px solid var(--ink)}
 
 /* ── 動態：少而有目的 ── */
 @media (prefers-reduced-motion:no-preference){
+  .crew img{animation:idle 2.6s ease-in-out infinite}
+  .crew img:nth-child(2){animation-delay:.4s}
+  .crew img:nth-child(3){animation-delay:.9s}
+  .crew img:nth-child(4){animation-delay:.2s}
+  .crew img:nth-child(5){animation-delay:.6s}
+  @keyframes idle{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+  .stop:nth-child(5) .dot{animation:breathe 2.4s ease-in-out infinite}
+  @keyframes breathe{0%,100%{box-shadow:0 0 0 2px var(--ink)}50%{box-shadow:0 0 0 2px var(--ink),0 0 14px 3px rgba(167,139,250,.55)}}
   .reveal{opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s ease}
   .reveal.in{opacity:1;transform:none}
   .poster.reveal{transform:rotate(-1.6deg) translateY(14px)}
@@ -212,7 +227,8 @@ footer{margin-top:96px;border-top:3px solid var(--ink)}
   .stop .sub{display:none}
   .spine .track{left:9%;right:9%}
   .ladder{font-size:1.12rem}
-  .mural .bg{height:240px}
+  .mural .bg{height:260px}
+  .statline{grid-template-columns:repeat(2,1fr);gap:28px 16px;margin-top:48px}
 }
 </style>
 </head>
@@ -257,16 +273,23 @@ footer{margin-top:96px;border-top:3px solid var(--ink)}
 </header>
 
 <div class="mural">
-  <img class="bg" src="assets/bg_valley_wide.webp" alt="A sunny pixel art valley" width="1536" height="867">
+  <img class="bg" src="assets/bg_stage.webp" alt="A sunny pixel art meadow" width="1536" height="864">
   <div class="crew" aria-hidden="true">
     <img src="assets/mon_capfiend.png" alt="" width="200" height="154">
     <img src="assets/mon_glyphmite.png" alt="" width="200" height="170">
-    <img src="assets/mon_tomeshell.png" alt="" width="200" height="144">
+    <img src="assets/mon_runeram.png" alt="" width="185" height="200">
     <img src="assets/mon_pearlsnail.png" alt="" width="200" height="199">
     <img src="assets/mon_sporetoad.png" alt="" width="190" height="200">
   </div>
 </div>
 <p class="mural-cap">Five of the eighty monsters you will meet in the dungeons.</p>
+
+<div class="wrap statline" aria-label="What is inside, in numbers">
+  <div><b data-n="1008">0</b><span>flashcards</span></div>
+  <div><b data-n="33">0</b><span>themes</span></div>
+  <div><b data-n="80">0</b><span>monsters</span></div>
+  <div><b data-n="10">0</b><span>dungeons</span></div>
+</div>
 
 <section>
   <div class="wrap">
@@ -301,8 +324,8 @@ footer{margin-top:96px;border-top:3px solid var(--ink)}
     <div>
       <p class="kicker">New to Thai?</p>
       <h2>Complete beginner? Start here.</h2>
-      <p class="lede">Glyphraid starts from the very first letter. All 44 consonants and 34 vowels and tones, each with clear audio.</p>
-      <p class="mutedp">Then 1008 cards of real words across 33 themes: greetings, numbers, food, getting around, shopping, health, work and more. Works offline. Nothing to set up, no decks to build.</p>
+      <p class="lede">The very first letter is lesson one. All 44 consonants and 34 vowels, each with clear audio.</p>
+      <p class="mutedp">Then real words: greetings, numbers, food, travel, work. Nothing to set up, no decks to build.</p>
     </div>
   </div>
 </section>
@@ -311,8 +334,7 @@ footer{margin-top:96px;border-top:3px solid var(--ink)}
   <div class="wrap">
     <p class="kicker">Mastery</p>
     <h2>It tracks how well you actually know each word.</h2>
-    <p class="lede">Every card climbs five levels, based on your correct answers and the days between them.</p>
-    <p class="mutedp">Three clean sessions in a row make a card Familiar. Get it right again a day later, it is Mastered. Three days after that, Proficient. Losing a run never touches this. Mastery does not go backwards.</p>
+    <p class="lede">Every card climbs five levels, based on your correct answers and the days between them. Losing a run never touches this.</p>
 
     <div class="spine" aria-label="The five mastery levels, in the same colors the app uses">
       <div class="track"></div>
@@ -385,6 +407,23 @@ footer{margin-top:96px;border-top:3px solid var(--ink)}
 </footer>
 
 <script>
+// 大數字 count-up：進到視野才跑,尊重「減少動態」
+(function(){
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var nums=document.querySelectorAll('.statline b');
+  if(reduce||!('IntersectionObserver' in window)){nums.forEach(function(el){el.textContent=el.dataset.n});return}
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(!e.isIntersecting)return;io.unobserve(e.target);
+      var end=+e.target.dataset.n,t0=null;
+      function tick(t){if(!t0)t0=t;var p=Math.min((t-t0)/900,1);
+        e.target.textContent=Math.round(end*(1-Math.pow(1-p,3)));
+        if(p<1)requestAnimationFrame(tick)}
+      requestAnimationFrame(tick);
+    });
+  },{rootMargin:'0px 0px -10% 0px'});
+  nums.forEach(function(el){io.observe(el)});
+})();
 // 進場 reveal：少量、尊重「減少動態」
 (function(){
   if(!('IntersectionObserver' in window))return;
