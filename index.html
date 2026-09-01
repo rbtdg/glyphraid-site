@@ -56,11 +56,16 @@ h1,h2,h3{font-family:"Baloo 2","Nunito Sans",sans-serif;line-height:1.15;margin:
 /* ---------- hero：app 首頁的藍天綠谷 ---------- */
 .hero{
   position:relative;
-  background:#3E9BE0 url("assets/bg_valley.webp") center bottom / cover no-repeat;
+  background:#2f8fd9 url("assets/bg_valley_wide.webp") center / cover no-repeat;
 }
-.hero::after{ /* 底部一小段陰影,讓過渡到奶油色不生硬 */
-  content:"";position:absolute;left:0;right:0;bottom:0;height:26px;
-  background:linear-gradient(180deg,transparent,rgba(58,43,27,.18));
+.hero::after{ /* 像素城齒收邊：hero 底部被奶油色一格一格咬進來 */
+  content:"";position:absolute;left:0;right:0;bottom:-1px;height:20px;
+  background-image:
+    linear-gradient(var(--paper),var(--paper)),
+    linear-gradient(var(--paper),var(--paper));
+  background-size:36px 10px,36px 10px;
+  background-position:0 10px,18px 0;
+  background-repeat:repeat-x;
 }
 .hero-inner{
   position:relative;display:grid;grid-template-columns:1.12fr .88fr;gap:36px;
@@ -108,6 +113,10 @@ section{padding:72px 0}
   font-family:"Baloo 2",sans-serif;font-weight:800;font-size:.85rem;letter-spacing:.2em;
   text-transform:uppercase;color:var(--amber-text);margin:0 0 8px;
 }
+.eyebrow::before{
+  content:"";display:inline-block;width:8px;height:8px;background:var(--amber);
+  margin-right:9px;transform:rotate(45deg);vertical-align:1px;
+}
 h2{font-size:clamp(1.6rem,3.4vw,2.25rem);font-weight:800;color:var(--ink);margin-bottom:12px}
 .lede{font-size:1.08rem;max-width:38rem;margin:0 0 6px}
 .mutedp{color:var(--muted);max-width:38rem;margin:0}
@@ -131,9 +140,14 @@ h2{font-size:clamp(1.6rem,3.4vw,2.25rem);font-weight:800;color:var(--ink);margin
 .step b{color:var(--amber-text)}
 
 /* 可愛怪遊行 */
-.mon-row{display:flex;gap:30px;align-items:flex-end;justify-content:center;margin-top:46px;flex-wrap:wrap}
-.mon-row img{height:96px;width:auto;image-rendering:pixelated;filter:drop-shadow(0 6px 8px rgba(58,43,27,.25))}
-.mon-cap{text-align:center;font-size:.88rem;font-weight:700;color:var(--muted);margin-top:14px}
+.meadow{
+  margin-top:48px;border-radius:26px;padding:30px 20px 16px;
+  background:linear-gradient(180deg,#8CCB5B 0%,#63AC3E 70%,#579A36 100%);
+  border:2px solid #4a8c30;box-shadow:inset 0 4px 0 #a4dd77, 0 6px 0 rgba(58,43,27,.15);
+}
+.mon-row{display:flex;gap:30px;align-items:flex-end;justify-content:center;flex-wrap:wrap}
+.mon-row img{height:96px;width:auto;image-rendering:pixelated;filter:drop-shadow(0 6px 6px rgba(31,68,18,.35))}
+.mon-cap{text-align:center;font-size:.88rem;font-weight:800;color:#245117;margin-top:12px}
 
 /* ---------- 掌握度五階 ---------- */
 .tiers{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:30px}
@@ -143,11 +157,13 @@ h2{font-size:clamp(1.6rem,3.4vw,2.25rem);font-weight:800;color:var(--ink);margin
 }
 .tier .dot{width:14px;height:14px;border-radius:50%;margin:0 auto 8px;border:2px solid rgba(58,43,27,.25)}
 .tier .name{font-size:.88rem;line-height:1.2}
-.t0{background:#EFEBE2;border-color:#CFC8B8;color:#8a8172}.t0 .dot{background:#CFC8B8}
-.t1{background:#EAF0DC;border-color:#B9CD92;color:#5d7434}.t1 .dot{background:#B9CD92}
-.t2{background:#DFF0DA;border-color:#8FC98A;color:#2f7a3a}.t2 .dot{background:#8FC98A}
-.t3{background:#FFF0C4;border-color:#F2C94C;color:#946a00}.t3 .dot{background:#F2C94C}
-.t4{background:#FFE3A1;border-color:#E8960F;color:#7a4c00;box-shadow:0 4px 0 rgba(232,150,15,.35)}.t4 .dot{background:#E8960F}
+/* 五階顏色＝遊戲內 TIER_COLORS 同一把尺（灰/橘紅/琥珀/綠/紫） */
+.tier{background:var(--card);color:var(--ink)}
+.t0{border-color:#8E8E96}.t0 .dot{background:#8E8E96}.t0 .name{color:#6d6d75}
+.t1{border-color:#FF5A3C}.t1 .dot{background:#FF5A3C}.t1 .name{color:#c23a22}
+.t2{border-color:#F2C14E}.t2 .dot{background:#F2C14E}.t2 .name{color:#a3761a}
+.t3{border-color:#4ADE80}.t3 .dot{background:#4ADE80}.t3 .name{color:#1f8f4e}
+.t4{border-color:#A78BFA;background:#F4EFFF;box-shadow:0 4px 0 rgba(167,139,250,.4)}.t4 .dot{background:#A78BFA}.t4 .name{color:#6d4fd1}
 .tier-arrow{display:flex;justify-content:space-between;font-size:.8rem;font-weight:800;color:var(--muted);margin-top:8px}
 
 /* ---------- 題型 ---------- */
@@ -199,6 +215,7 @@ footer{border-top:2px solid var(--card-line);padding:52px 0 60px;background:var(
 
 /* ---------- RWD ---------- */
 @media (max-width:900px){
+  .hero{background:#2f8fd9 url("assets/bg_valley.webp") center top / cover no-repeat}
   .hero-inner,.split,.split.rev{grid-template-columns:1fr;gap:40px}
   .hero-inner{padding-top:44px;padding-bottom:52px}
   .qr-box{display:none}
@@ -208,9 +225,17 @@ footer{border-top:2px solid var(--card-line);padding:52px 0 60px;background:var(
   .tier .name{font-size:.68rem}
   .tier .dot{width:10px;height:10px}
 }
+@media (hover:hover){
+  .step,.qtype,.tier,.badge img{transition:transform .18s ease,box-shadow .18s ease}
+  .step:hover,.qtype:hover{transform:translateY(-3px);box-shadow:0 7px 0 rgba(58,43,27,.16)}
+  .tier:hover{transform:translateY(-3px)}
+  .badge:hover img{transform:translateY(-2px);box-shadow:0 8px 20px rgba(20,50,80,.4)}
+}
 @media (prefers-reduced-motion:no-preference){
   .hero .poster{animation:float 7s ease-in-out infinite}
   @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+  .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
+  .reveal.in{opacity:1;transform:none}
 }
 </style>
 </head>
@@ -243,7 +268,7 @@ footer{border-top:2px solid var(--card-line);padding:52px 0 60px;background:var(
     </div>
 
     <div class="poster">
-      <img src="assets/poster_battle.webp" alt="The battle screen: a monster holds the Thai word for proud, pick the right meaning to strike it" width="720" height="1564" fetchpriority="high">
+      <img src="assets/poster_battle.webp" alt="The battle screen: a cute skull bird holds the Thai word for thank you, pick the right meaning to strike it" width="720" height="1280" fetchpriority="high">
     </div>
   </div>
 </header>
@@ -256,8 +281,8 @@ footer{border-top:2px solid var(--card-line);padding:52px 0 60px;background:var(
       <p class="mutedp">This is where it stops being a plain flashcard app.</p>
       <div class="steps">
         <div class="step"><span class="num">1</span><p><b>Fight.</b> Every monster holds a Thai card. Answer it and you strike. Miss it and it hits you back.</p></div>
-        <div class="step"><span class="num">2</span><p><b>Earn.</b> Win the fight, take the coins, and spend them in the shop between battles.</p></div>
-        <div class="step"><span class="num">3</span><p><b>Collect.</b> Draw relics that bend the rules of your next run. Keep learning to unlock new dungeons, each with its own monsters.</p></div>
+        <div class="step"><span class="num">2</span><p><b>Earn.</b> Winning fights pays coins.</p></div>
+        <div class="step"><span class="num">3</span><p><b>Collect.</b> The shop turns coins into relics: permanent unlocks that show up in your runs from then on. Keep learning and new dungeons open up, each with its own monsters.</p></div>
       </div>
     </div>
     <div class="poster">
@@ -265,6 +290,7 @@ footer{border-top:2px solid var(--card-line);padding:52px 0 60px;background:var(
     </div>
   </div>
   <div class="wrap">
+    <div class="meadow">
     <div class="mon-row" aria-hidden="true">
       <img src="assets/mon_cometcub.png" alt="" width="160" height="200">
       <img src="assets/mon_capfiend.png" alt="" width="200" height="154">
@@ -273,6 +299,7 @@ footer{border-top:2px solid var(--card-line);padding:52px 0 60px;background:var(
       <img src="assets/mon_frostfawn.png" alt="" width="104" height="200">
     </div>
     <p class="mon-cap">A few of the 80 monsters waiting in the dungeons.</p>
+    </div>
   </div>
 </section>
 
@@ -368,5 +395,17 @@ footer{border-top:2px solid var(--card-line);padding:52px 0 60px;background:var(
   </div>
 </footer>
 
+<script>
+// 進場 reveal：尊重「減少動態」,舊瀏覽器直接顯示
+(function(){
+  if(!('IntersectionObserver' in window))return;
+  var els=document.querySelectorAll('.split>div,.wrap>.tiers,.wrap>.qtypes,.price-panel,.meadow,.ladder');
+  els.forEach(function(el){el.classList.add('reveal')});
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}});
+  },{rootMargin:'0px 0px -8% 0px'});
+  els.forEach(function(el){io.observe(el)});
+})();
+</script>
 </body>
 </html>
