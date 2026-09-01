@@ -3,17 +3,346 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Glyphraid</title>
+<title>Glyphraid · Learn Thai with flashcards</title>
+<meta name="description" content="Learn Thai a little every day. Flashcards for the Thai alphabet and real words, powered by spaced repetition, wrapped in a dungeon crawl. Free to download, one payment unlocks everything. No subscription, no ads.">
+
+<!-- TODO(ios-live): iOS 過審上架後，把下一行打開並填入 App Store ID（數字），
+     iOS Safari 會在頁面頂端長出原生安裝橫幅（web-to-app 轉換率約翻倍）。
+<meta name="apple-itunes-app" content="app-id=APP_STORE_ID">
+-->
+
+<meta property="og:title" content="Glyphraid · Learn Thai with flashcards">
+<meta property="og:description" content="The words you know are your attack. Thai flashcards with spaced repetition, wrapped in a dungeon crawl. One payment, no subscription, no ads.">
+<meta property="og:image" content="https://rbtdg.github.io/glyphraid-site/assets/og.jpg">
+<meta property="og:type" content="website">
+
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700&display=swap">
+
 <style>
-  body { font-family: system-ui, -apple-system, sans-serif; max-width: 720px; margin: 40px auto; padding: 0 20px; line-height: 1.65; color: #2a2a2a; }
+:root{
+  --ground:#12100e;
+  --ground-2:#1a1712;
+  --teal:#10686b;
+  --teal-deep:#0b3a3c;
+  --gold:#ffc93c;
+  --amber:#f0a028;
+  --cream:#f3e9d2;
+  --cream-line:#8a6b4a;
+  --ink-on-cream:#2b1f14;
+  --text:#ede6d8;
+  --muted:#a99e8c;
+  --line:#332c22;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--ground);color:var(--text);
+  font-family:"Nunito Sans",-apple-system,"Helvetica Neue",Arial,sans-serif;
+  font-size:17px;line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--gold)}
+a:focus-visible,button:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:4px}
+h1,h2,h3{font-family:"Baloo 2","Nunito Sans",sans-serif;line-height:1.15;margin:0;text-wrap:balance}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+/* grid 子項預設 min-width:auto,內容(380px logo、海報原始寬)會把欄位撐破 → 全鎖 0 */
+.hero-inner>*,.mech-inner>*,.srs .inner>*{min-width:0}
+
+/* ---------- hero ---------- */
+.hero{
+  position:relative;overflow:hidden;
+  background:
+    radial-gradient(900px 620px at 78% 30%, rgba(16,104,107,.38), transparent 65%),
+    linear-gradient(180deg, #0d2b2c 0%, var(--ground) 62%);
+}
+.hero-bg{
+  position:absolute;top:0;right:-40px;height:115%;width:auto;opacity:.5;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 30%,#000 70%,transparent 100%);
+  mask-image:linear-gradient(90deg,transparent 0%,#000 30%,#000 70%,transparent 100%);
+  pointer-events:none;
+}
+.hero-inner{
+  position:relative;display:grid;grid-template-columns:1.15fr .85fr;gap:36px;
+  align-items:center;padding-top:64px;padding-bottom:72px;
+}
+.hero-copy .logo{width:min(380px,92%);height:auto;image-rendering:pixelated;margin-bottom:26px}
+.hero h1{font-size:clamp(2rem,4.6vw,3rem);font-weight:800;color:#fff;margin-bottom:14px}
+.hero .sub{font-size:1.13rem;color:var(--text);max-width:34rem;margin:0 0 26px}
+.hero .sub b{color:var(--gold);font-weight:700}
+
+.cta-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:10px}
+.badge img,.badge svg{height:56px;width:auto;display:block}
+.badge:focus-visible{outline-offset:5px}
+.ios-soon{
+  display:flex;align-items:center;min-height:56px;padding:8px 18px;
+  border:2px dashed #4c4336;border-radius:10px;color:var(--muted);
+  font-size:.85rem;font-weight:600;letter-spacing:.02em;
+}
+.price-line{font-size:.95rem;color:var(--muted);margin:0 0 26px}
+.price-line b{color:var(--text)}
+
+.qr-box{
+  display:inline-flex;align-items:center;gap:14px;background:var(--ground-2);
+  border:1px solid var(--line);border-radius:14px;padding:12px 18px 12px 12px;
+}
+.qr-box img{width:88px;height:88px;border-radius:8px}
+.qr-box span{font-size:.85rem;color:var(--muted);max-width:11rem;line-height:1.45}
+
+.poster{
+  width:min(320px,80vw);margin:0 auto;border-radius:26px;overflow:hidden;
+  border:2px solid #3c352a;
+  box-shadow:0 24px 70px rgba(0,0,0,.55), 0 0 0 6px rgba(255,201,60,.05);
+}
+
+/* ---------- 通用 band ---------- */
+section{padding:78px 0}
+.eyebrow{
+  font-family:"Baloo 2",sans-serif;font-weight:700;font-size:.85rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--amber);margin:0 0 10px;
+}
+h2{font-size:clamp(1.6rem,3.4vw,2.3rem);font-weight:800;color:#fff;margin-bottom:14px}
+.lede{font-size:1.1rem;color:var(--text);max-width:36rem;margin:0 0 8px}
+.mutedp{color:var(--muted);max-width:36rem;margin:0}
+
+/* ---------- 機制 ---------- */
+.mech{background:linear-gradient(180deg,var(--ground) 0%,#15221f 55%,var(--ground) 100%)}
+.mech-inner{display:grid;grid-template-columns:.85fr 1.15fr;gap:48px;align-items:center}
+.mech-cards{display:grid;gap:12px;margin-top:26px}
+.mcard{
+  background:var(--ground-2);border:1px solid var(--line);border-left:4px solid var(--teal);
+  border-radius:12px;padding:14px 18px;font-size:.98rem;color:var(--text);
+}
+.mcard b{color:var(--gold)}
+
+/* ---------- 內容量：字卡風格 ---------- */
+.stats-strip{position:relative}
+.card-row{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:34px;
+}
+.stat-card{
+  background:var(--cream);border:3px solid var(--cream-line);border-radius:18px;
+  padding:22px 16px 18px;text-align:center;color:var(--ink-on-cream);
+  box-shadow:0 6px 0 rgba(0,0,0,.35);
+}
+.stat-card .n{font-family:"Baloo 2",sans-serif;font-weight:800;font-size:2rem;line-height:1.1}
+.stat-card .l{font-size:.85rem;font-weight:700;letter-spacing:.03em;color:#6b573f;margin-top:4px}
+.stat-card .thai{font-size:1.6rem;line-height:1.2}
+.mon-row{display:flex;gap:26px;align-items:flex-end;justify-content:center;margin-top:44px;flex-wrap:wrap}
+.mon-row img{height:110px;width:auto;image-rendering:pixelated;filter:drop-shadow(0 8px 12px rgba(0,0,0,.5))}
+
+/* ---------- SRS ---------- */
+.srs .inner{
+  display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;
+}
+.lib-card{
+  max-width:380px;margin:0 auto;background:var(--cream);border:3px solid var(--cream-line);
+  border-radius:22px;padding:34px 30px 26px;color:var(--ink-on-cream);text-align:center;
+  box-shadow:0 10px 0 rgba(0,0,0,.35);
+}
+.lib-card .thai{font-size:3rem;line-height:1.2}
+.lib-card .rom{font-size:1rem;color:#6b573f;font-weight:700;margin-top:6px}
+.mastery{display:flex;gap:8px;margin-top:26px}
+.mastery span{
+  flex:1;height:14px;border-radius:7px;background:#e2d5b4;border:1px solid #c4b28c;
+}
+.mastery span.on{background:linear-gradient(180deg,var(--gold),var(--amber));border-color:#c07f1d}
+.mastery-label{display:flex;justify-content:space-between;font-size:.78rem;color:#8a765a;font-weight:700;margin-top:8px}
+
+/* ---------- 價格 ---------- */
+.pricing{background:linear-gradient(180deg,var(--ground) 0%,#101c1b 50%,var(--ground) 100%)}
+.price-panel{
+  max-width:680px;margin:38px auto 0;background:var(--ground-2);
+  border:1px solid #3e372b;border-radius:22px;overflow:hidden;
+  box-shadow:0 30px 80px rgba(0,0,0,.45);
+}
+.price-head{
+  display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap;
+  padding:30px 34px 22px;border-bottom:1px solid var(--line);
+}
+.price-head .big{font-family:"Baloo 2",sans-serif;font-weight:800;font-size:3.2rem;color:#fff;line-height:1}
+.price-head .big small{font-size:1.05rem;color:var(--muted);font-weight:600;margin-left:10px;white-space:nowrap}
+.price-list{list-style:none;margin:0;padding:26px 34px}
+.price-list li{
+  display:flex;gap:16px;padding:9px 0;font-size:.98rem;color:var(--text);
+}
+.price-list li::before{
+  content:counter(pli,decimal-leading-zero);counter-increment:pli;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.8rem;color:var(--amber);
+  padding-top:.25em;min-width:2em;
+}
+.price-list{counter-reset:pli}
+.price-list b{color:var(--gold)}
+.price-cta{padding:6px 34px 32px}
+.price-note{font-size:.85rem;color:var(--muted);margin:14px 0 0}
+
+/* ---------- footer ---------- */
+footer{border-top:1px solid var(--line);padding:56px 0 64px}
+.foot-inner{display:flex;gap:28px;align-items:center;flex-wrap:wrap}
+.foot-inner img{height:96px;width:auto;image-rendering:pixelated}
+.foot-copy{flex:1;min-width:260px}
+.foot-copy p{margin:0 0 6px;color:var(--muted);font-size:.95rem}
+.foot-copy .solo{color:var(--text);font-size:1.02rem}
+.foot-links{display:flex;gap:22px;flex-wrap:wrap;margin-top:12px;font-size:.9rem}
+.foot-links a{color:var(--muted)}
+
+/* ---------- RWD ---------- */
+@media (max-width:900px){
+  .hero-inner,.mech-inner,.srs .inner{grid-template-columns:1fr;gap:44px}
+  .hero-bg{display:none}
+  .hero-inner{padding-top:48px;padding-bottom:56px}
+  .qr-box{display:none} /* 手機上掃 QR 沒有意義,badge 直接按 */
+  .mech-inner .poster{order:-1}
+}
+@media (prefers-reduced-motion:no-preference){
+  .hero .poster{animation:float 7s ease-in-out infinite}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+}
 </style>
 </head>
 <body>
-<h1>Glyphraid</h1>
-<p>Learn Thai by fighting monsters — type the answer to attack.</p>
-<ul>
-  <li><a href="privacy.html">Privacy Policy</a></li>
-  <li>Support: <a href="mailto:terry@glyphraid.com">terry@glyphraid.com</a></li>
-</ul>
+
+<header class="hero">
+  <img class="hero-bg" src="assets/bg_temple.webp" alt="" width="864" height="1536" aria-hidden="true">
+  <div class="wrap hero-inner">
+    <div class="hero-copy">
+      <img class="logo" src="assets/logo.png" alt="Glyphraid" width="474" height="132">
+      <h1>Learn Thai a little every day.</h1>
+      <p class="sub">The words you keep forgetting are the ones Glyphraid remembers for you. It brings them back right before they slip away, and <b>the words you know become your attack</b>.</p>
+
+      <div class="cta-row">
+        <a class="badge" href="https://play.google.com/store/apps/details?id=com.terryouyang.glyphraid&amp;referrer=utm_source%3Dglyphraid_site%26utm_medium%3Dweb" aria-label="Get it on Google Play">
+          <img src="assets/badge-play.png" alt="Get it on Google Play" width="646" height="250">
+        </a>
+        <!-- TODO(ios-live): iOS 上架後,把下面這顆 dashed 佔位換成官方 badge:
+        <a class="badge" href="https://apps.apple.com/app/idAPP_STORE_ID" aria-label="Download on the App Store">
+          <img src="assets/badge-appstore.svg" alt="Download on the App Store" height="56">
+        </a>
+        -->
+        <span class="ios-soon">iPhone version is in App&nbsp;Store review · days away</span>
+      </div>
+      <p class="price-line">Free to download · full unlock <b>US$9.99, one time</b> · no subscription, no ads</p>
+
+      <div class="qr-box">
+        <img src="assets/qr.png" alt="QR code linking to this page" width="264" height="264">
+        <span>On a computer? Scan with your phone to grab the app.</span>
+      </div>
+    </div>
+
+    <div class="poster">
+      <img src="assets/shot_hero.webp" alt="A Thai flashcard for the letter ko kai, standing in a pixel art temple. Start from the alphabet." width="720" height="1564" fetchpriority="high">
+    </div>
+  </div>
+</header>
+
+<section class="mech">
+  <div class="wrap mech-inner">
+    <div class="poster">
+      <img src="assets/shot_mech.webp" alt="The battle screen: a monster holds the Thai word for proud, pick the right meaning to strike it" width="720" height="1564" loading="lazy">
+    </div>
+    <div>
+      <p class="eyebrow">How it plays</p>
+      <h2>The words you know are your attack.</h2>
+      <p class="lede">Every monster on screen is holding a Thai card. Answer it and you strike. Miss it and it hits you back.</p>
+      <div class="mech-cards">
+        <div class="mcard"><b>No tapping through.</b> There is no way to deal damage except actually knowing the word.</div>
+        <div class="mcard"><b>Runs, relics and dungeons</b> are all in there for one reason: to make daily review something you want to come back to.</div>
+        <div class="mcard"><b>Lose a run, keep everything you learned.</b> Your card mastery never goes backwards.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="stats-strip">
+  <div class="wrap">
+    <p class="eyebrow">What's inside</p>
+    <h2>The whole writing system, then the words you'll actually use.</h2>
+    <p class="mutedp">Greetings, numbers, food, getting around, shopping, health, work and more. Clear audio on every word. Works offline.</p>
+
+    <div class="card-row">
+      <div class="stat-card"><div class="n">1008</div><div class="l">cards</div></div>
+      <div class="stat-card"><div class="n">33</div><div class="l">themes</div></div>
+      <div class="stat-card"><div class="n">44</div><div class="l">consonants</div></div>
+      <div class="stat-card"><div class="n">34</div><div class="l">vowels &amp; tones</div></div>
+      <div class="stat-card"><div class="n thai">ก ไก่</div><div class="l">from the very first letter</div></div>
+    </div>
+
+    <div class="mon-row" aria-hidden="true">
+      <img src="assets/mon_coralstag.png" alt="" width="138" height="220">
+      <img src="assets/mon_bonehydra.png" alt="" width="220" height="205">
+      <img src="assets/mon_clockwyrm.png" alt="" width="180" height="220">
+    </div>
+  </div>
+</section>
+
+<section class="srs">
+  <div class="wrap inner">
+    <div>
+      <p class="eyebrow">Why it sticks</p>
+      <h2>Spaced repetition, without building your own decks.</h2>
+      <p class="lede">Every card you meet goes into your library and climbs five levels of mastery. A card only moves up when you get it right again on a later day.</p>
+      <p class="mutedp">You meet each word again just as you are about to forget it. That is what moves it into long term memory instead of letting it fall out overnight.</p>
+    </div>
+    <div>
+      <div class="lib-card">
+        <div class="thai" lang="th">สวัสดี</div>
+        <div class="rom">sà-wàt-dii · hello</div>
+        <div class="mastery" aria-hidden="true">
+          <span class="on"></span><span class="on"></span><span class="on"></span><span></span><span></span>
+        </div>
+        <div class="mastery-label"><span>new</span><span>mastered</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pricing">
+  <div class="wrap">
+    <p class="eyebrow" style="text-align:center">Pricing</p>
+    <h2 style="text-align:center">One price. Everything. Forever.</h2>
+
+    <div class="price-panel">
+      <div class="price-head">
+        <div class="big">US$9.99<small>one time</small></div>
+      </div>
+      <ul class="price-list">
+        <li><span><b>One payment, forever.</b> No subscription, no energy meter, no ads. Ever.</span></li>
+        <li><span>All 33 themes and 1008 cards, plus <b>everything added later</b>.</span></li>
+        <li><span>Three starter themes, 104 cards in all, are <b>free forever</b>. Try before you pay.</span></li>
+        <li><span>Works offline. Your progress lives on your phone.</span></li>
+        <li><span>Early price. It will go up to US$19.99 later.</span></li>
+      </ul>
+      <div class="price-cta">
+        <div class="cta-row">
+          <a class="badge" href="https://play.google.com/store/apps/details?id=com.terryouyang.glyphraid&amp;referrer=utm_source%3Dglyphraid_site%26utm_medium%3Dweb" aria-label="Get it on Google Play">
+            <img src="assets/badge-play.png" alt="Get it on Google Play" width="646" height="250">
+          </a>
+          <span class="ios-soon">iPhone version · days away</span>
+        </div>
+        <p class="price-note">Shake your phone anywhere in the app to report a bug or ask for something. Feedback really does change what gets built next.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-inner">
+    <img src="assets/mascot_wave.png" alt="The Glyphraid mascot waving" width="206" height="260">
+    <div class="foot-copy">
+      <p class="solo">Made by a solo developer learning Thai the hard way.</p>
+      <p>Glyphraid teaches the Thai alphabet and everyday vocabulary in short daily sessions.</p>
+      <div class="foot-links">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="mailto:terry@glyphraid.com">terry@glyphraid.com</a>
+        <span style="color:var(--muted)">© 2026 Glyphraid</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
 </body>
 </html>
