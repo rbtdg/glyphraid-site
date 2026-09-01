@@ -44,6 +44,7 @@
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
+html,body{overflow-x:clip}
 body{
   margin:0;background:var(--paper);color:var(--ink);
   font-family:"Nunito Sans",-apple-system,"Helvetica Neue",Arial,sans-serif;
@@ -95,14 +96,14 @@ h1,h2{font-family:"Fraunces",Georgia,serif;font-weight:600;line-height:1.08;marg
 .poster.tilt-r:hover{transform:rotate(0deg) translateY(-4px)}
 
 /* ── 山谷壁畫（記憶點）：全幅畫框,怪物站在草地上 ── */
-.mural{position:relative;border-top:3px solid var(--ink);border-bottom:3px solid var(--ink)}
+.mural{position:relative;border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);overflow:hidden}
 .mural .bg{width:100%;height:min(400px,48vw);object-fit:cover;object-position:center 30%}
 .crew{
   position:absolute;left:0;right:0;bottom:14%;
-  display:flex;justify-content:center;align-items:flex-end;gap:clamp(20px,5.5vw,72px);
-  padding:0 24px;
+  display:flex;justify-content:center;align-items:flex-end;gap:clamp(10px,5.5vw,72px);
+  padding:0 16px;
 }
-.crew img{height:clamp(60px,9vw,120px);width:auto;image-rendering:pixelated;
+.crew img{height:clamp(46px,9vw,120px);width:auto;image-rendering:pixelated;
   filter:drop-shadow(0 6px 5px rgba(31,68,18,.3))}
 .mural-cap{
   text-align:center;font-family:"Fraunces",serif;font-style:italic;font-weight:500;
@@ -275,7 +276,7 @@ footer{margin-top:96px;border-top:3px solid var(--ink)}
 <div class="mural">
   <img class="bg" src="assets/bg_stage.webp" alt="A sunny pixel art meadow" width="1536" height="864">
   <div class="crew" aria-hidden="true">
-    <img src="assets/mon_capfiend.png" alt="" width="200" height="154">
+    <img src="assets/mon_thornhare.png" alt="" width="164" height="200">
     <img src="assets/mon_glyphmite.png" alt="" width="200" height="170">
     <img src="assets/mon_runeram.png" alt="" width="185" height="200">
     <img src="assets/mon_pearlsnail.png" alt="" width="200" height="199">
