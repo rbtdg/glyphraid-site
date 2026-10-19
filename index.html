@@ -6,6 +6,8 @@
 <title>Glyphraid · Learn Thai by fighting monsters</title>
 <meta name="description" content="A Thai flashcard app for iPhone and Android. Every monster holds a Thai word: pick the right meaning to hit it, pick wrong and it hits you. The alphabet and 1008 everyday words, with audio. One payment, no ads, no subscription.">
 <meta name="theme-color" content="#0E5C5F">
+<!-- 內容安全政策：只准執行本頁那一段內嵌腳本。⚠️ 改了 <script> 內容一定要跑 python3 tools/update-csp.py，否則整個試玩會被瀏覽器擋掉 -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'sha256-44328HZLIBv4+3ZbwVM6lcbDsQG/lbAPZIIt3gAyzVU='; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; media-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="apple-itunes-app" content="app-id=6785621868">
 
 <meta property="og:title" content="Glyphraid · Learn Thai by fighting monsters">
@@ -16,9 +18,8 @@
 
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Nunito:wght@500;700;800&family=Sarabun:wght@700&family=Silkscreen&display=swap">
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/dela-gothic-one-400-latin.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/nunito-latin.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="assets/huninn-latin.woff2" crossorigin>
 <link rel="preload" as="image" href="assets/bg_grove.webp">
 
@@ -45,7 +46,13 @@
    刻意避開的 AI 樣板（見 vibe-coded 研究）：紫色漸層、Inter、膠囊徽章、三張功能卡、
    毛玻璃、統一圓角柔影、每段同一個淡入、米色紙加襯線、黑底加螢光、某個字單獨上色。
 ────────────────────────────────────────────────────────────── */
+/* 字型全部自帶（2026-10-19 安全檢查：不再從 Google 載入，訪客 IP 不外流；授權皆 OFL） */
 @font-face{font-family:"Huninn";src:url(assets/huninn-latin.woff2) format("woff2");font-display:swap}
+@font-face{font-family:"Dela Gothic One";font-weight:400;font-style:normal;font-display:swap;src:url(assets/fonts/dela-gothic-one-400-latin.woff2) format("woff2");unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:"Nunito";font-weight:500 800;font-style:normal;font-display:swap;src:url(assets/fonts/nunito-latin-ext.woff2) format("woff2");unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:"Nunito";font-weight:500 800;font-style:normal;font-display:swap;src:url(assets/fonts/nunito-latin.woff2) format("woff2");unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:"Sarabun";font-weight:700;font-style:normal;font-display:swap;src:url(assets/fonts/sarabun-700-thai.woff2) format("woff2");unicode-range:U+02D7, U+0303, U+0331, U+0E01-0E5B, U+200C-200D, U+25CC}
+@font-face{font-family:"Silkscreen";font-weight:400;font-style:normal;font-display:swap;src:url(assets/fonts/silkscreen-400-latin.woff2) format("woff2");unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
 :root{
   --teal:#0E5C5F;
   --teal-deep:#0B4F52;

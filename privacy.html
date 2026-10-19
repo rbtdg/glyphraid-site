@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'none'; style-src 'self' 'unsafe-inline'; img-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <title>Glyphraid — Privacy Policy</title>
 <style>
   body { font-family: system-ui, -apple-system, sans-serif; max-width: 720px; margin: 40px auto; padding: 0 20px; line-height: 1.65; color: #2a2a2a; }
@@ -12,7 +13,7 @@
 </head>
 <body>
 <h1>Glyphraid — Privacy Policy</h1>
-<p class="muted">Effective date: August 29, 2026</p>
+<p class="muted">Effective date: October 19, 2026</p>
 
 <p>Glyphraid is a language-learning game developed by an independent developer.
 This page explains what data the app handles and how.</p>
@@ -21,17 +22,29 @@ This page explains what data the app handles and how.</p>
 <p>The app collects <strong>anonymous usage analytics</strong> to understand how features
 are used and to improve the game:</p>
 <ul>
-  <li><strong>App interaction events</strong> — for example, that a battle was completed
-      or a feature was opened. These events do not contain personal information.</li>
-  <li><strong>An anonymous device identifier</strong> — a random identifier used to count
+  <li><strong>App interaction events</strong>, for example that a battle was completed
+      or a feature was opened. These events do not contain your name, email or anything you type.</li>
+  <li><strong>An anonymous device identifier</strong>: a random identifier used to count
       unique devices. It is not linked to your name, email, or any account (the app has no accounts).</li>
+  <li><strong>Basic technical details</strong> sent with each event: device model, operating
+      system version, app version, language and time zone. We use them to find bugs that only
+      happen on certain devices.</li>
 </ul>
+<p>Our analytics service is set to discard the IP address of every event, so IP addresses
+are not stored.</p>
 <p>Analytics are processed by <a href="https://posthog.com">PostHog</a>, acting as our
 data processor.</p>
 
 <h2>What we do NOT collect</h2>
-<p>The app does not collect your name, contacts, location, photos, files, or any
+<p>The app does not collect your name, contacts, photos, files, or any
 financial information. There is no account system and no sign-in.</p>
+<p><strong>No location.</strong> The app never asks for location permission and never reads
+your device&rsquo;s location. Analytics services can normally guess an approximate location
+(country or city) from the IP address an event arrives from. Current versions of Glyphraid
+switch that off for every event they send. Versions 1.2.0 and earlier did not, so analytics
+events sent by those older versions carry an approximate country and city derived from the
+IP address. We do not use that to identify anyone, and you can ask us to delete it
+(see <a href="delete-data.html">Delete my data</a>).</p>
 <p><strong>No advertising.</strong> Glyphraid contains no ads and no third-party
 advertising SDKs.</p>
 <p>The app never asks for your email address. The one exception is if <em>you</em>
@@ -51,7 +64,10 @@ message addressed to terry@glyphraid.com.</p>
   <li><strong>your email address</strong> &mdash; because you sent us an email;</li>
   <li>the text you wrote;</li>
   <li>a screenshot, if you chose to attach one;</li>
-  <li>on Android, your device model and OS version, so we can reproduce the problem.</li>
+  <li>on Android, your device model and OS version, so we can reproduce the problem;</li>
+  <li>a short technical trace of your last few taps in the app (no card content and no
+      answers), added at the end of the email so we can tell what went wrong. You can see it,
+      and delete it, before you send.</li>
 </ul>
 <p>Sending a report is entirely optional. Nothing is transmitted unless you tap send in
 your own email app. We use these reports only to fix problems and reply to you, and we do
