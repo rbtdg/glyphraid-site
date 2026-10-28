@@ -7,14 +7,14 @@
 <meta name="description" content="A Thai flashcard app for iPhone and Android. Every monster holds a Thai word: pick the right meaning to hit it, pick wrong and it hits you. The alphabet and 1008 everyday words, with audio. One payment, no ads, no subscription.">
 <meta name="theme-color" content="#0E5C5F">
 <!-- 內容安全政策：腳本只准本站的檔案（assets/demo.js）和雜湊相符的那一段內嵌腳本（語言）。⚠️ 改了內嵌 <script> 內容一定要跑 python3 tools/update-csp.py，否則會被瀏覽器擋掉 -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-1ETS3m7h+Ta3SByKCPTWPNioAp1eg6gazG9CHRJiQHU='; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; media-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-tla+jNIBkIyBn4vj5KOFL4YFCMS+OBkEQ+i5kZb5u+k='; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; media-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="apple-itunes-app" content="app-id=6785621868">
 <link rel="canonical" href="https://glyphraid.com/">
 <link rel="alternate" hreflang="en" href="https://glyphraid.com/">
 <link rel="alternate" hreflang="zh-Hant" href="https://glyphraid.com/zh/">
 <link rel="alternate" hreflang="x-default" href="https://glyphraid.com/">
-<!-- 語言：第一次來、瀏覽器第一語言是中文、沒選過 → 轉到 /zh/；按右上角的切換會記住選擇（只有首頁會轉，隱私、刪除資料頁不轉） -->
-<script>(function(){var k='glyphraid-lang',l;try{l=localStorage.getItem(k)}catch(e){}if(document.documentElement.lang==='en'&&(l?l==='zh':/^zh/i.test((navigator.languages&&navigator.languages[0])||navigator.language||'')))location.replace('zh/'+location.search+location.hash);document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('[data-lang]');if(a)try{localStorage.setItem(k,a.getAttribute('data-lang'))}catch(x){}})})();</script>
+<!-- 語言：第一次來、瀏覽器第一語言是中文、沒選過 → 轉到 /zh/；右上角的切換連結帶 ?hl=，到了這頁才記住選擇（點、中鍵、開新分頁都一樣）；只有首頁會轉，隱私、刪除資料頁不轉 -->
+<script>(function(){var k='glyphraid-lang',l,q=new URLSearchParams(location.search),h=q.get('hl');if(h==='en'||h==='zh'){l=h;try{localStorage.setItem(k,h)}catch(e){}q.delete('hl');var s=q.toString();history.replaceState(null,'',location.pathname+(s?'?'+s:'')+location.hash)}else{try{l=localStorage.getItem(k)}catch(e){}}if(document.documentElement.lang==='en'&&(l?l==='zh':/^zh/i.test((navigator.languages&&navigator.languages[0])||navigator.language||'')))location.replace('zh/'+location.search+location.hash)})();</script>
 
 <meta property="og:title" content="Glyphraid · Learn Thai by fighting monsters">
 <meta property="og:description" content="Every monster holds a Thai word. Pick the right meaning to hit it. Pick wrong and it hits you.">
@@ -38,7 +38,7 @@
       <img src="assets/favicon.png" alt="" width="32" height="32">
       <b>Glyphraid</b>
     </a>
-    <nav class="toplinks"><a href="zh/" hreflang="zh-Hant" lang="zh-Hant" data-lang="zh">中文</a></nav>
+    <nav class="toplinks"><a href="zh/?hl=zh" hreflang="zh-Hant" lang="zh-Hant" data-lang="zh">中文</a></nav>
   </header>
 
   <main class="main">

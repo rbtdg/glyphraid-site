@@ -7,14 +7,14 @@
 <meta name="description" content="泰文字卡 app，iPhone、Android 都有。每隻怪都帶著一個泰文字：選對意思就打中牠，選錯就換牠打你。泰文字母和 1008 個日常單字，都有發音。一次買斷，沒有廣告、沒有訂閱。">
 <meta name="theme-color" content="#0E5C5F">
 <!-- 內容安全政策：腳本只准本站的檔案（assets/demo.js）和雜湊相符的那一段內嵌腳本（語言）。⚠️ 改了內嵌 <script> 內容一定要跑 python3 tools/update-csp.py，否則會被瀏覽器擋掉 -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-1ETS3m7h+Ta3SByKCPTWPNioAp1eg6gazG9CHRJiQHU='; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; media-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-tla+jNIBkIyBn4vj5KOFL4YFCMS+OBkEQ+i5kZb5u+k='; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; media-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="apple-itunes-app" content="app-id=6785621868">
 <link rel="canonical" href="https://glyphraid.com/zh/">
 <link rel="alternate" hreflang="en" href="https://glyphraid.com/">
 <link rel="alternate" hreflang="zh-Hant" href="https://glyphraid.com/zh/">
 <link rel="alternate" hreflang="x-default" href="https://glyphraid.com/">
-<!-- 語言：跟英文首頁同一段（中文頁不轉，只記住右上角切換的選擇） -->
-<script>(function(){var k='glyphraid-lang',l;try{l=localStorage.getItem(k)}catch(e){}if(document.documentElement.lang==='en'&&(l?l==='zh':/^zh/i.test((navigator.languages&&navigator.languages[0])||navigator.language||'')))location.replace('zh/'+location.search+location.hash);document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('[data-lang]');if(a)try{localStorage.setItem(k,a.getAttribute('data-lang'))}catch(x){}})})();</script>
+<!-- 語言：跟英文首頁同一段（中文頁不轉；網址帶 ?hl= 時記住選擇） -->
+<script>(function(){var k='glyphraid-lang',l,q=new URLSearchParams(location.search),h=q.get('hl');if(h==='en'||h==='zh'){l=h;try{localStorage.setItem(k,h)}catch(e){}q.delete('hl');var s=q.toString();history.replaceState(null,'',location.pathname+(s?'?'+s:'')+location.hash)}else{try{l=localStorage.getItem(k)}catch(e){}}if(document.documentElement.lang==='en'&&(l?l==='zh':/^zh/i.test((navigator.languages&&navigator.languages[0])||navigator.language||'')))location.replace('zh/'+location.search+location.hash)})();</script>
 
 <meta property="og:title" content="Glyphraid｜打怪學泰文">
 <meta property="og:locale" content="zh_TW">
@@ -40,7 +40,7 @@
       <img src="../assets/favicon.png" alt="" width="32" height="32">
       <b>Glyphraid</b>
     </a>
-    <nav class="toplinks"><a href="../" hreflang="en" lang="en" data-lang="en">English</a></nav>
+    <nav class="toplinks"><a href="../?hl=en" hreflang="en" lang="en" data-lang="en">English</a></nav>
   </header>
 
   <main class="main">
