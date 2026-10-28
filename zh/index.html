@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Glyphraid｜打怪學泰文</title>
+<meta name="description" content="泰文字卡 app，iPhone、Android 都有。每隻怪都帶著一個泰文字：選對意思就打中牠，選錯就換牠打你。泰文字母和 1008 個日常單字，都有發音。一次買斷，沒有廣告、沒有訂閱。">
+<meta name="theme-color" content="#0E5C5F">
+<!-- 內容安全政策：腳本只准本站的檔案（assets/demo.js）和雜湊相符的那一段內嵌腳本（語言）。⚠️ 改了內嵌 <script> 內容一定要跑 python3 tools/update-csp.py，否則會被瀏覽器擋掉 -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-1ETS3m7h+Ta3SByKCPTWPNioAp1eg6gazG9CHRJiQHU='; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; media-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="apple-itunes-app" content="app-id=6785621868">
+<link rel="canonical" href="https://glyphraid.com/zh/">
+<link rel="alternate" hreflang="en" href="https://glyphraid.com/">
+<link rel="alternate" hreflang="zh-Hant" href="https://glyphraid.com/zh/">
+<link rel="alternate" hreflang="x-default" href="https://glyphraid.com/">
+<!-- 語言：跟英文首頁同一段（中文頁不轉，只記住右上角切換的選擇） -->
+<script>(function(){var k='glyphraid-lang',l;try{l=localStorage.getItem(k)}catch(e){}if(document.documentElement.lang==='en'&&(l?l==='zh':/^zh/i.test((navigator.languages&&navigator.languages[0])||navigator.language||'')))location.replace('zh/'+location.search+location.hash);document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('[data-lang]');if(a)try{localStorage.setItem(k,a.getAttribute('data-lang'))}catch(x){}})})();</script>
+
+<meta property="og:title" content="Glyphraid｜打怪學泰文">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:description" content="每隻怪都帶著一個泰文字。選對就打中牠，選錯就換牠打你。">
+<meta property="og:image" content="https://glyphraid.com/assets/og.jpg">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" type="image/png" href="../assets/favicon.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/dela-gothic-one-400-latin.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/nunito-latin.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="../assets/huninn-latin.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="../assets/huninn-zh.woff2" crossorigin>
+<link rel="preload" as="image" href="../assets/bg_grove.webp">
+
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<div class="page">
+  <header class="top">
+    <a class="brand" href="./" aria-label="Glyphraid 首頁">
+      <img src="../assets/favicon.png" alt="" width="32" height="32">
+      <b>Glyphraid</b>
+    </a>
+    <nav class="toplinks"><a href="../" hreflang="en" lang="en" data-lang="en">English</a></nav>
+  </header>
+
+  <main class="main">
+    <div class="copy">
+      <h1>打怪學泰文。</h1>
+      <p class="lede">每隻怪都帶著一張泰文字卡。答對你打牠，答錯牠打你。</p>
+      <!-- 「1、3、10 天」＝Vask config/progression-config.ts 的 REVIEW_INTERVAL_DAYS（familiar/mastered/proficient）。那邊改了這句要跟著改。 -->
+      <p class="srs">答對的字會隔越久再出現：隔一天、三天、十天。答錯的很快就會再來。</p>
+      <div class="getbox" id="get">
+        <div class="get">
+          <a href="https://apps.apple.com/app/id6785621868"><img src="../assets/badge-appstore.svg" alt="在 App Store 下載" width="144" height="48"></a>
+          <a href="https://play.google.com/store/apps/details?id=com.terryouyang.glyphraid&amp;referrer=utm_source%3Dglyphraid_site%26utm_medium%3Dweb"><img src="../assets/badge-play-tight.png" alt="在 Google Play 下載" width="161" height="48"></a>
+        </div>
+        <p class="fine">泰文字母和 1008 個日常單字，每個都有發音。<b>免費開始。</b>一次付費解鎖全部，沒有廣告、沒有訂閱。</p>
+      </div>
+    </div>
+
+    <p class="fine m">泰文字母和 1008 個日常單字，每個都有發音。<b>免費開始。</b>一次付費解鎖全部，沒有廣告、沒有訂閱。</p>
+
+    <section class="words" id="words" aria-labelledby="words-h">
+      <h2 id="words-h">打打看第一場。</h2>
+      <p class="how">答對的字母會落在這裡。</p>
+      <ol class="slots" id="slots"><li class="next">字母落在這裡</li><li></li><li></li><li></li><li></li></ol>
+      <p class="tally" id="tally" aria-live="polite"></p>
+      <div class="end">
+        <p>這就是 app 裡真正的第一場。在 app 裡，接著拿金幣去商店，再選一個聖物、打強怪。之後還有全部 44 個子音、母音，和 33 個日常單字主題。</p>
+        <div class="get">
+          <a href="https://apps.apple.com/app/id6785621868"><img src="../assets/badge-appstore.svg" alt="在 App Store 下載" width="102" height="34"></a>
+          <a href="https://play.google.com/store/apps/details?id=com.terryouyang.glyphraid&amp;referrer=utm_source%3Dglyphraid_site%26utm_medium%3Dfinish"><img src="../assets/badge-play-tight.png" alt="在 Google Play 下載" width="114" height="34"></a>
+        </div>
+        <button class="again" type="button" data-again>再玩一次</button>
+      </div>
+      <p class="keyline" aria-hidden="true"><span class="keys"><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><kbd>4</kbd></span> 鍵盤也能選答案。</p>
+    </section>
+
+    <div class="stage-col">
+      <div class="phone" role="region" aria-label="app 戰鬥畫面的可玩複本">
+        <div class="screen" id="screen">
+          <div class="fade">
+            <div class="aim" aria-hidden="true"></div>
+            <div class="card" id="card">
+              <button class="bulb" id="bulb" type="button" aria-label="這個字的說明">
+                <svg viewBox="-1 -1 9 12" shape-rendering="crispEdges" aria-hidden="true">
+                  <defs><path id="bulbshape" d="M2 0h3v1h1v1h1v3H6v1H5v3H4v1H3V9H2V6H1V5H0V2h1V1h1z"/></defs>
+                  <g fill="#3A2A18"><use href="#bulbshape" x="-1" y="-1"/><use href="#bulbshape" y="-1"/><use href="#bulbshape" x="1" y="-1"/><use href="#bulbshape" x="-1"/><use href="#bulbshape" x="1"/><use href="#bulbshape" x="-1" y="1"/><use href="#bulbshape" y="1"/><use href="#bulbshape" x="1" y="1"/></g>
+                  <path fill="#E8B04B" d="M2 0h3v1h1v1h1v3H6v1H5v1H2V6H1V5H0V2h1V1h1z"/>
+                  <path fill="#3A2A18" d="M2 7h3v2H4v1H3V9H2z"/>
+                </svg>
+              </button>
+              <span class="th" id="th" lang="th">ก</span>
+              <span class="mean" id="mean"></span>
+            </div>
+            <div class="mon" id="mon"><img id="monimg" src="../assets/mon_thornhare.webp" alt="一隻怪" width="384" height="384"></div>
+            <div class="hp mhp" aria-hidden="true"><i id="monfill"></i><b id="monnum">3 / 3</b></div>
+          </div>
+          <div class="you" id="you" aria-hidden="true">
+            <svg viewBox="0 0 7 6" shape-rendering="crispEdges"><path fill="#1B1410" d="M1 0h2v1h1V0h2v1h1v3H6v1H5v1H2V5H1V4H0V1h1z"/><path fill="#E23B3B" d="M1 1h2v1h1V1h2v2H5v1H4v1H3V4H2V3H1z"/><path fill="#FF9A8A" d="M1 1h1v1H1z"/></svg>
+            <div class="hp"><i id="youfill"></i><b id="younum">10 / 10</b></div>
+          </div>
+          <div class="prompt" id="ask">選出這個字母的全名</div>
+          <div class="panel" id="opts" role="group" aria-labelledby="ask"></div>
+
+          <div class="coach" id="coach" role="dialog" aria-modal="true" aria-labelledby="coachtext" tabindex="-1">
+            <div class="hole" id="hole"></div>
+            <div class="row" id="coachrow">
+              <img src="../assets/mascot_point.webp" alt="" width="192" height="192">
+              <div class="bubble"><div id="coachtext"></div><small>點一下繼續</small></div>
+            </div>
+          </div>
+
+          <div class="detail" id="detail" role="dialog" aria-modal="true" aria-labelledby="dname">
+            <div class="box">
+              <div class="glyph" id="dglyph" lang="th"></div>
+              <button class="x" id="dclose" type="button" aria-label="關閉">
+                <svg viewBox="0 0 7 7" shape-rendering="crispEdges" aria-hidden="true"><path fill="#3A2A18" d="M0 0h2v1h1v1h1V1h1V0h2v2H6v1H5v1h1v1h1v2H5V6H4V5H3v1H2v1H0V5h1V4h1V3H1V2H0z"/></svg>
+              </button>
+              <div class="rom" id="drom"></div>
+              <div class="name" id="dname"></div>
+              <button class="speak" id="dspeak" type="button">發音</button>
+              <hr>
+              <ol id="dnotes"></ol>
+            </div>
+          </div>
+
+          <div class="retry" id="retry" role="dialog" aria-modal="true" aria-labelledby="retryh">
+            <div class="mid">
+              <img src="../assets/mascot_cheer.webp" alt="" width="320" height="320">
+              <h3 id="retryh">這一關再來一次</h3>
+              <p>學過的字一個都不會少。血補滿了，直接再打一次。</p>
+            </div>
+            <button type="button" id="retrybtn">再打一次</button>
+          </div>
+        </div>
+      </div>
+      <p class="under" id="under">這是 app 第一場的可玩複本。不認得的字，點燈泡。</p>
+      <p class="sr" id="live" aria-live="polite"></p>
+    </div>
+  </main>
+
+  <footer class="foot">
+    <span>© 2026 Glyphraid。一個正在學泰文的人做的。</span>
+    <span class="sp"></span>
+    <a href="mailto:terry@glyphraid.com">terry@glyphraid.com</a>
+    <a href="privacy.html">隱私權政策</a>
+    <a href="delete-data.html">刪除我的資料</a>
+  </footer>
+</div>
+<div class="ground" aria-hidden="true"></div>
+<div class="dock" id="dock" aria-hidden="true">
+  <ol id="dockwords"></ol>
+  <p id="docktext"></p>
+  <a id="dockcta" href="#get" tabindex="-1">下載 app</a>
+  <button class="again" type="button" data-again tabindex="-1">再玩一次</button>
+</div>
+
+<script src="../assets/demo.js"></script>
+</body>
+</html>

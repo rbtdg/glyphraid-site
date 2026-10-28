@@ -1,0 +1,395 @@
+/* ──────────────────────────────────────────────────────────────
+   Glyphraid 單頁（2026-10-19）
+   一個畫面講完一件事：答對字卡＝打怪。右邊的手機是 app 戰鬥畫面的可玩複本。
+
+   ⚠️ 舞台必須忠於遊戲（Terry 2026-10-19：不忠實＝可能被說欺騙消費者）。
+   版面順序、字串、顏色、數值都照 Vask 的程式：
+     screens/battle-screen.tsx（版面）、answer-inputs/choice-answer-input.tsx（2×2 選項）、
+     config/theme.ts（顏色）、config/progression-config.ts（玩家 10 血、每題 1 傷）、
+     config/run-config.ts（一般怪 4~6 血）、config/i18n.ts（"Pick the meaning of this word"）。
+   內容照 app「新手第一場」（Terry 2026-10-19 拍板）：config/onboarding.ts 的 6 張子音、
+   怪 3 血（ONBOARDING_MONSTER_HP）、"Pick this letter's name"、新卡帶燈泡（app 1.3.2 起沒有 NEW 標籤）、
+   兩段教學提示（components/coach-mark.tsx，字串照 i18n 原文）、燈泡詳解（components/card-detail-dialog.tsx）、
+   打輸＝重試畫面（screens/onboarding-retry-screen.tsx）。打贏就收尾，不無限出怪。
+   刻意省略（不影響「遊戲是什麼」）：齒輪、Skip、聖物欄、狀態列、連擊、地圖、商店、魔王。
+   刻意不加（遊戲裡沒有）：拼音提示（預設關）、戰鬥中的聲音（讀題零聲音，聲音只在燈泡的 Speak）、
+   全螢幕震動、2 以上的傷害、翻卡學習頁（app 2026-08 已拆）。
+   遊戲改了版面或流程，這裡要跟著改。
+
+   頁面本身只有兩個顏色：app 圖示的青綠、字卡的米色。
+   刻意避開的 AI 樣板（見 vibe-coded 研究）：紫色漸層、Inter、膠囊徽章、三張功能卡、
+   毛玻璃、統一圓角柔影、每段同一個淡入、米色紙加襯線、黑底加螢光、某個字單獨上色。
+────────────────────────────────────────────────────────────── */
+/* 字型全部自帶（2026-10-19 安全檢查：不再從 Google 載入，訪客 IP 不外流；授權皆 OFL；粉圓的授權在 huninn-LICENSE.txt） */
+@font-face{font-family:"Huninn";src:url(huninn-latin.woff2) format("woff2");font-display:swap}
+/* 中文頁的粉圓：只收 zh/index.html 與 demo.js 中文字串用到的字（tools/huninn-zh.py 產生） */
+@font-face{font-family:"Huninn";src:url(huninn-zh.woff2) format("woff2");font-display:swap;unicode-range:U+3000-303F, U+4E00-9FFF, U+FF00-FFEF}
+@font-face{font-family:"Dela Gothic One";font-weight:400;font-style:normal;font-display:swap;src:url(fonts/dela-gothic-one-400-latin.woff2) format("woff2");unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:"Nunito";font-weight:500 800;font-style:normal;font-display:swap;src:url(fonts/nunito-latin-ext.woff2) format("woff2");unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:"Nunito";font-weight:500 800;font-style:normal;font-display:swap;src:url(fonts/nunito-latin.woff2) format("woff2");unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:"Sarabun";font-weight:700;font-style:normal;font-display:swap;src:url(fonts/sarabun-700-thai.woff2) format("woff2");unicode-range:U+02D7, U+0303, U+0331, U+0E01-0E5B, U+200C-200D, U+25CC}
+@font-face{font-family:"Silkscreen";font-weight:400;font-style:normal;font-display:swap;src:url(fonts/silkscreen-400-latin.woff2) format("woff2");unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+:root{
+  --teal:#0E5C5F;
+  --teal-deep:#0B4F52;
+  --teal-ink:#06302F;
+  --cream:#F3E3C3;
+  --cream-hi:#FAF3E2;
+  --mint:#A6D6CB;      /* 青底上的次要字，對 --teal 4.6:1 */
+  /* 以下照 Vask config/theme.ts */
+  --g-bg:#12100E; --g-panel:#1D1A16; --g-raised:#2A2621; --g-outline:#1B1410;
+  --g-card:#F1CE8A; --g-card-edge:#E8B04B;
+  --g-card-bad:#FFE5DE; --g-accent:#FF5A3C;
+  --g-opt:#F3EAD4; --g-opt-edge:#C98A3C; --g-ink:#3A2A18;
+  --g-ok:#5BBC3A; --g-ok-edge:#3E8E2A; --g-ok-soft:#A5D98C;
+  --g-bad:#E89A9A; --g-bad-edge:#7E1A1A;
+  --g-hp:#E23B3B; --g-you:#5BBC3A; --g-track:#241B12;
+  --g-text:#FBF4E6; --g-dim:#C9B89A;
+}
+*{box-sizing:border-box}
+html,body{margin:0;overflow-x:clip}
+body{
+  position:relative;min-height:100svh;
+  background:var(--teal);color:var(--cream);
+  font-family:"Nunito",ui-rounded,system-ui,sans-serif;
+  font-weight:500;font-size:17px;line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+/* 兩格的抖色顆粒：像素畫的底紋 */
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.06;
+  background-image:conic-gradient(#000 25%,transparent 0 50%,#000 0 75%,transparent 0);
+  background-size:4px 4px;
+}
+a{color:inherit}
+a:focus-visible,button:focus-visible{outline:3px solid var(--g-card-edge);outline-offset:3px}
+img{display:block;max-width:100%}
+
+.page{
+  position:relative;z-index:1;min-height:100svh;
+  display:grid;grid-template-rows:auto 1fr auto;grid-template-columns:minmax(0,1fr);
+  max-width:1280px;margin:0 auto;
+  padding:clamp(16px,2.4vw,26px) clamp(16px,4vw,56px) max(16px,env(safe-area-inset-bottom));
+}
+.top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:4px 16px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.brand img{width:32px;height:32px;border-radius:8px}
+.brand b{font-family:"Dela Gothic One",sans-serif;font-weight:400;font-size:1.1rem}
+
+.main{
+  display:grid;grid-template-columns:minmax(0,32rem) 250px calc(min(700px,100svh - 236px) * 1080 / 2340 + 64px);justify-content:space-between;align-items:center;
+  gap:clamp(28px,4vw,64px);padding:clamp(12px,2vh,28px) 0;
+}
+.copy{max-width:32rem}
+h1{
+  font-family:"Dela Gothic One",sans-serif;font-weight:400;
+  font-size:clamp(2.3rem,4.6vw,4.2rem);line-height:1.04;letter-spacing:-.012em;
+  margin:0 0 .5em;color:var(--cream-hi);text-wrap:balance;
+  /* 字欄最窄約 400px 時最長的字「monsters.」約 5.84em，上限 4.2rem 放得下；字不從中間拆（句點不會自己掉到下一行） */
+  overflow-wrap:normal;
+}
+.lede{font-size:clamp(1.1rem,1.45vw,1.32rem);font-weight:700;margin:0 0 .7rem;max-width:32rem;text-wrap:pretty;color:var(--cream-hi)}
+.srs{margin:0 0 2rem;max-width:32rem;text-wrap:pretty}
+.get{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin:0 0 1.1rem}
+.get a{display:block;transition:transform .12s steps(2)}
+.get a:hover{transform:translateY(-2px)}
+.get img{height:48px;width:auto}
+.fine{font-size:.95rem;color:var(--mint);margin:0;max-width:31rem;text-wrap:pretty}
+.fine b{color:var(--cream);font-weight:800;white-space:nowrap}
+
+/* ── 頁面自己的像素世界：底部兩層樹林，慢慢平移（不同速度＝視差） ── */
+.ground{
+  position:absolute;z-index:0;left:0;right:0;bottom:0;height:132px;pointer-events:none;
+  background:url(trees_front.png) 0 100%/1536px 132px repeat-x,url(trees_back.png) 0 100%/1536px 132px repeat-x;
+  image-rendering:pixelated;
+  animation:drift 480s steps(1024) infinite;
+}
+@keyframes drift{to{background-position:-3072px 100%,-1536px 100%}}
+.firefly{position:absolute;z-index:0;width:4px;height:4px;background:var(--g-card);pointer-events:none;
+  animation:rise 2.6s steps(26) forwards,blink .4s steps(2) infinite}
+@keyframes rise{0%{transform:translate(0,0)}50%{transform:translate(12px,-90px)}100%{transform:translate(-4px,-190px);opacity:0}}
+@keyframes blink{50%{opacity:.35}}
+
+/* ── 手機版：答對之後從底部滑出「你學到的字」條，字飛進這裡 ── */
+.dock{display:none}
+@media (max-width:860px){
+  .dock{
+    display:flex;align-items:center;gap:10px;position:fixed;z-index:40;left:0;right:0;bottom:0;
+    padding:8px 16px calc(8px + env(safe-area-inset-bottom));
+    background:var(--teal-ink);border-top:2px solid var(--cream);
+    transform:translateY(110%);visibility:hidden;transition:transform .3s steps(4),visibility 0s .3s;
+  }
+  .dock.show{transform:none;visibility:visible;transition:transform .3s steps(4)}
+  .dock ol{list-style:none;margin:0;padding:0;display:flex;gap:6px;flex:none}
+  .dock li{background:var(--cream);color:var(--g-ink);font-family:"Sarabun",sans-serif;font-weight:700;font-size:1.15rem;
+    line-height:1;padding:7px 9px;border-radius:4px}
+  .dock p{margin:0;flex:1;min-width:0;font-size:.82rem;line-height:1.3;color:var(--mint)}
+  .dock p b{color:var(--cream)}
+  .dock .again{display:none;margin:0;padding:5px 10px;font-size:.85rem}
+  .dock.won{flex-wrap:wrap}
+  .dock.won p{flex-basis:100%;order:-1;font-size:.9rem}
+  .dock.won ol{flex-basis:100%;flex-wrap:wrap}
+  body.docked.won-page .page{padding-bottom:calc(150px + env(safe-area-inset-bottom))}
+  .dock.won .again{display:block}
+  .dock a{flex:none;font-weight:800;font-size:.9rem;text-decoration:none;color:var(--g-ink);background:var(--g-card);
+    border:3px solid var(--g-card-edge);border-radius:8px;padding:5px 12px}
+  body.docked .page{padding-bottom:calc(92px + env(safe-area-inset-bottom))}
+  .foot .sp{display:none}
+}
+
+/* ── 舞台欄 ── */
+.stage-col{position:relative;display:flex;flex-direction:column;align-items:center}
+
+/* ── 你的字：答對的字從手機飛出來落在這裡 ── */
+.words{align-self:center}
+.words h2{font-family:"Dela Gothic One",sans-serif;font-weight:400;font-size:1.25rem;white-space:nowrap;line-height:1.15;margin:0 0 6px;color:var(--cream-hi)}
+.words .how{font-size:.9rem;line-height:1.45;color:var(--mint);margin:0 0 16px;text-wrap:pretty}
+.keys{display:inline-grid;grid-template-columns:auto auto;gap:3px;vertical-align:middle;margin-right:4px}
+.keys kbd{font-family:"Silkscreen",monospace;font-size:.62rem;color:var(--mint);border:2px solid var(--mint);
+  width:17px;height:17px;display:grid;place-items:center;border-radius:3px;line-height:1}
+.slots{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.slots li{height:54px;background:var(--teal-deep);border-radius:4px}
+.slots li.next{background:none;border:2px dashed rgba(166,214,203,.5);display:grid;place-items:center;font-size:.8rem;white-space:nowrap;color:var(--mint)}
+.slots li.next.pulse{animation:pulse 1.2s steps(2) 2}
+@keyframes pulse{50%{border-color:var(--cream);color:var(--cream)}}
+.keyline{margin:14px 0 0;font-size:.85rem;color:var(--mint);display:flex;align-items:center;gap:8px}
+.slots li.got{border:0;background:var(--cream);color:var(--g-ink);display:flex;align-items:baseline;justify-content:space-between;
+  gap:10px;padding:0 14px;box-shadow:inset 0 -4px 0 rgba(58,42,24,.16);align-items:center}
+.slots .th{font-family:"Sarabun",sans-serif;font-weight:700;font-size:1.45rem;line-height:1}
+.slots .en{font-size:.85rem;font-weight:700;color:#7a6446}
+.slots li.land{animation:land .28s steps(3)}
+@keyframes land{0%{transform:scale(1.12)}100%{transform:scale(1)}}
+.tally{margin:12px 0 0;font-size:.85rem;color:var(--mint);min-height:2.6em;text-wrap:balance}
+.tally span{white-space:nowrap}
+.words .end{display:none}
+.words.won .end{display:block}
+.words.won .how,.words.won .keyline,.words.won .slots li:not(.got){display:none}
+.words.won h2{white-space:normal;text-wrap:balance;font-size:1.75rem;line-height:1.1;margin-bottom:14px}
+.end p{margin:12px 0 0;font-size:.9rem;line-height:1.5;color:var(--mint);text-wrap:pretty}
+.end .get{margin:16px 0 0;gap:8px}
+.end .get{flex-wrap:nowrap}
+.end .get a{flex:none}
+.end .get img{height:34px;width:auto;max-width:none}
+.again{font:inherit;font-weight:800;font-size:.9rem;color:var(--cream);background:none;border:2px solid var(--mint);
+  border-radius:6px;padding:5px 12px;margin-top:14px;cursor:pointer}
+.again:hover{border-color:var(--cream)}
+.tally b{color:var(--cream);font-weight:800}
+.tally.flash b{animation:tally .5s steps(2) 2}
+@keyframes tally{50%{color:var(--g-card)}}
+.flyword{position:fixed;z-index:50;pointer-events:none;font-family:"Sarabun",sans-serif;font-weight:700;color:var(--g-ink);
+  background:var(--g-card);border:3px solid var(--g-card-edge);border-radius:8px;padding:2px 12px;line-height:1.2;
+  transform:translate(-50%,-50%)}
+
+.phone{
+  --h:min(700px,calc(100svh - 236px));
+  --bz:calc(var(--h) * .014);
+  position:relative;z-index:1;height:var(--h);aspect-ratio:1080/2340;
+  background:#0d0c0b;border-radius:calc(var(--h) * .064);padding:var(--bz);
+  box-shadow:inset 0 0 0 2px #2b2a28,0 0 0 2px var(--teal-ink),8px 10px 0 var(--teal-ink);
+}
+.phone.jolt{animation:jolt .14s steps(2)}
+@keyframes jolt{50%{transform:translate(2px,-1px)}}
+.phone::after{ /* 鏡頭 */
+  content:"";position:absolute;z-index:3;left:50%;top:calc(var(--bz) + var(--h) * .012);
+  width:calc(var(--h) * .014);height:calc(var(--h) * .014);margin-left:calc(var(--h) * -.007);
+  border-radius:50%;background:#0d0c0b;box-shadow:0 0 0 1px #2b2a28;
+}
+.screen{
+  position:relative;width:100%;height:100%;overflow:hidden;
+  border-radius:calc(var(--h) * .064 - var(--bz));
+  background:var(--g-bg) url(bg_grove.webp) center top/cover no-repeat;
+  container-type:size;
+  font-family:"Huninn","Nunito",ui-rounded,sans-serif;
+  user-select:none;-webkit-user-select:none;
+}
+/* 以下位置全部是 % 螢幕高（cqh）/ 寬（cqw），量自 Android 實機截圖 */
+.aim{position:absolute;left:50%;top:15.2cqh;transform:translateX(-50%);width:4.4cqw;height:2.9cqw;
+  background:var(--g-card-edge);clip-path:polygon(0 0,100% 0,50% 100%);animation:bob 1.2s steps(2) infinite}
+@keyframes bob{50%{transform:translate(-50%,3px)}}
+.card{
+  position:absolute;left:50%;top:17.4cqh;transform:translateX(-50%);
+  min-width:36.4cqw;min-height:8.1cqh;padding:.6cqh 3cqw;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:var(--g-card);border:3px solid var(--g-card-edge);border-radius:12px;
+  color:var(--g-ink);
+}
+.card .bulb{position:absolute;top:1px;right:1px;width:5.8cqw;height:5.8cqw;padding:0;border:0;background:none;
+  display:grid;place-items:center;cursor:pointer}
+.card .bulb:active{opacity:.5}
+.card .bulb svg{width:4.4cqw;height:5.8cqw;display:block}
+.card.seen .bulb,.card.bad .bulb{display:none}
+.card .th{font-family:"Sarabun",sans-serif;font-weight:700;font-size:min(11.6cqw,48px);line-height:1.15}
+.card .mean{display:none;font-size:7cqw;font-weight:400;color:var(--g-accent);line-height:1.2;white-space:nowrap}
+.card.bad{background:var(--g-card-bad);border-color:var(--g-accent)}
+.card.bad .th{display:none}
+.card.bad .mean{display:block}
+.fade,.prompt,.panel{transition:opacity .45s .16s}
+.gone .fade,.gone .prompt,.gone .panel{opacity:0}
+.card.enter{animation:cardin .22s steps(3)}
+@keyframes cardin{from{transform:translate(-50%,-8px);opacity:0}}
+
+.mon{position:absolute;left:50%;top:26.8cqh;width:31.5cqw;height:14cqh;transform:translateX(-50%);
+  display:flex;align-items:flex-end;justify-content:center}
+.mon img{width:100%;height:100%;object-fit:contain;object-position:bottom;animation:idle 1.4s steps(2) infinite}
+@keyframes idle{50%{transform:translateY(-2px)}}
+.mon.hit img{animation:hit .36s}
+@keyframes hit{0%{filter:brightness(0) invert(1)}40%{transform:scale(1.15);filter:brightness(0) invert(1)}100%{transform:scale(1)}}
+.mon.lunge img{animation:lunge .3s}
+@keyframes lunge{50%{transform:translateY(12%) scale(1.06)}}
+.mon.down img{animation:down .7s forwards}
+@keyframes down{0%{filter:brightness(0) invert(1)}100%{filter:brightness(0) invert(1);opacity:0;transform:scale(.85)}}
+.mon.in img{animation:monin .45s steps(4)}
+@keyframes monin{from{opacity:0;transform:translateY(-10%)}}
+
+.hp{position:absolute;height:2.4cqh;border:2px solid var(--g-outline);border-radius:4px;background:var(--g-track);overflow:hidden}
+.hp i{position:absolute;inset:0;transform-origin:left;transition:transform .4s ease-out}
+.hp b{position:absolute;inset:0;display:grid;place-items:center;font-weight:400;font-size:3.2cqw;color:var(--g-text);
+  text-shadow:1px 1px 0 #000,-1px 1px 0 #000,1px -1px 0 #000,-1px -1px 0 #000;font-variant-numeric:tabular-nums}
+.hp.mhp{left:50%;transform:translateX(-50%);top:41.6cqh;width:24cqw}
+.hp.mhp i{background:var(--g-hp)}
+.you{position:absolute;left:10cqw;right:10cqw;top:52.6cqh;display:flex;align-items:center;gap:2cqw}
+.you svg{width:6cqw;height:6cqw;flex:none}
+.you .hp{position:relative;flex:1;height:2.6cqh}
+.you .hp i{background:var(--g-you)}
+.you.hurt{animation:hurt .25s}
+@keyframes hurt{20%{transform:translateX(-10px) scale(1.12)}50%{transform:translateX(7px) scale(1.06)}80%{transform:translateX(-4px)}}
+.prompt{position:absolute;left:5.8cqw;right:5.8cqw;top:56.6cqh;height:5.6cqh;display:grid;place-items:center;
+  background:var(--g-raised);border:1px solid var(--g-outline);border-radius:8px;color:var(--g-dim);font-size:3.4cqw}
+
+.panel{position:absolute;left:0;right:0;top:63.2cqh;bottom:0;background:var(--g-panel);
+  border-top:3px solid var(--g-bg);box-shadow:inset 0 2px 0 var(--g-raised);
+  padding:2.9cqw 2.9cqw calc(2.9cqw + 3.6cqh);display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:1.95cqw}
+.opt{
+  font:inherit;font-size:4.4cqw;line-height:1.25;color:var(--g-ink);
+  background:var(--g-opt);border:3px solid var(--g-opt-edge);border-radius:12px;
+  padding:1cqh 2cqw;cursor:pointer;position:relative;overflow:hidden;
+}
+.opt:active,.opt.press{background:var(--g-opt-edge)}
+.opt.right{background:var(--g-ok);border-color:var(--g-ok-edge)}
+.opt.right::after{content:"";position:absolute;inset:0;background:#fff;animation:wflash .14s forwards}
+@keyframes wflash{to{opacity:0}}
+.opt.wrong{background:var(--g-bad);border-color:var(--g-bad-edge)}
+.opt.reveal{background:var(--g-ok-soft);border-color:var(--g-ok-edge)}
+.panel[aria-busy="true"] .opt{cursor:default}
+
+/* 教學提示（照 components/coach-mark.tsx）：壓暗＋金框挖洞，吉祥物＋對話框在下方 */
+.coach{position:absolute;inset:0;z-index:20;cursor:pointer;display:none}
+.coach.show{display:block}
+.coach .hole{position:absolute;border:3px solid var(--g-card-edge);border-radius:12px;box-shadow:0 0 0 200vmax rgba(0,0,0,.62)}
+.coach .row{position:absolute;left:2.9cqw;right:2.9cqw;bottom:5.8cqw;display:flex;align-items:flex-end;gap:1cqw}
+.coach .row.top{bottom:auto;top:5.8cqw}
+.coach img{width:23.3cqw;height:23.3cqw;flex:none}
+.coach .bubble{flex:1;margin-bottom:2.9cqw;background:var(--g-opt);border:3px solid #A66A20;border-radius:12px;
+  padding:1.9cqw 2.9cqw;color:var(--g-ink);font-size:4cqw;line-height:1.45}
+.coach .bubble p{margin:0}
+.coach .bubble p+p{margin-top:1cqw}
+.coach .bubble small{display:block;text-align:right;font-size:2.67cqw;color:#5C4B36;margin-top:1cqw}
+
+/* 燈泡詳解（照 components/card-detail-dialog.tsx） */
+.detail{position:absolute;inset:0;z-index:21;background:rgba(20,15,10,.92);padding:5.8cqw;display:none;place-items:center}
+.detail.show{display:grid}
+.detail .box{position:relative;width:100%;max-width:82.5cqw;background:var(--g-opt);border:3px solid #A66A20;border-radius:16px;
+  padding:3.9cqw 5.8cqw 5.8cqw;color:var(--g-ink);text-align:center}
+.detail .glyph{font-family:"Sarabun",sans-serif;font-weight:700;font-size:10.7cqw;line-height:1.3;min-height:14.6cqw;display:grid;place-items:center}
+.detail .x{position:absolute;right:3.9cqw;top:4.8cqw;width:5.8cqw;height:5.8cqw;padding:0;border:0;background:none;cursor:pointer;display:grid;place-items:center}
+.detail .x svg{width:3.4cqw;height:3.4cqw}
+.detail .rom{font-size:3.64cqw;color:#5C4B36;margin-top:1cqw}
+.detail .name{font-size:4.85cqw;font-weight:700;margin-top:.5cqw}
+.detail .speak{margin-top:1.9cqw;font:inherit;font-size:4.37cqw;color:var(--g-text);background:#C96F2A;border:2px solid #8A4512;
+  border-bottom-width:5px;border-radius:8px;padding:1.6cqw 5.3cqw;min-width:29cqw;cursor:pointer}
+.detail .speak:active{transform:translateY(2px);border-bottom-width:3px}
+.detail hr{border:0;border-top:2px solid rgba(166,106,32,.5);margin:2.9cqw 0}
+.detail ol{list-style:none;margin:0;padding:0;text-align:left;display:flex;flex-direction:column;gap:2.9cqw}
+.detail li{display:flex;gap:1.9cqw;font-size:3.64cqw;line-height:1.6;text-wrap:pretty}
+.detail li span{text-wrap:pretty}
+.detail li b{color:#A66A20;flex:none}
+.detail li [lang=th]{font-family:"Sarabun",sans-serif}
+
+/* 打輸：重試畫面（照 screens/onboarding-retry-screen.tsx） */
+.retry{position:absolute;inset:0;z-index:22;background:var(--g-bg);display:none;flex-direction:column;align-items:center;
+  padding:0 3.9cqw 9cqh;text-align:center}
+.retry.show{display:flex}
+.retry .mid{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.retry img{width:38.8cqw;height:38.8cqw}
+.retry h3{margin:2cqh 0 1cqh;font-size:5.3cqw;color:var(--g-card-edge)}
+.retry p{margin:0;font-size:3.64cqw;line-height:1.47;color:var(--g-dim)}
+.retry button{font:inherit;font-size:5.3cqw;color:var(--g-text);background:#C96F2A;border:2px solid #8A4512;border-bottom-width:5px;
+  border-radius:8px;padding:3cqw 6.8cqw;min-width:36cqw;cursor:pointer}
+
+.ball{position:absolute;z-index:5;width:4.4cqw;height:4.4cqw;margin:-2.2cqw 0 0 -2.2cqw;border-radius:50%;
+  background:#FFD98A;box-shadow:0 0 0 2px #fff,0 0 0 4px rgba(39,211,255,.5);pointer-events:none}
+.ball.foe{background:#FFB4A0;box-shadow:0 0 0 2px #fff,0 0 0 4px rgba(226,69,47,.55)}
+.burst{position:absolute;z-index:5;width:0;height:0;pointer-events:none}
+.burst::before{content:"";position:absolute;left:-6cqw;top:-6cqw;width:12cqw;height:12cqw;border:3px solid #fff;border-radius:50%;animation:ring .18s forwards}
+@keyframes ring{from{transform:scale(.3)}to{transform:scale(1);opacity:0}}
+.burst s{position:absolute;width:1.6cqw;height:1.6cqw;background:#FFD98A;animation:spark .3s forwards}
+@keyframes spark{to{transform:translate(var(--x),var(--y));opacity:0}}
+.dmg{position:absolute;z-index:6;font-family:"Silkscreen",monospace;font-size:6.5cqw;line-height:1;color:#fff;
+  text-shadow:2px 2px 0 #1B1410,-2px 2px 0 #1B1410,2px -2px 0 #1B1410,-2px -2px 0 #1B1410;
+  transform:translateX(-50%);pointer-events:none;animation:dmg 1.75s forwards}
+@keyframes dmg{0%{transform:translate(-50%,6px) scale(.6)}8%{transform:translate(-50%,0) scale(1.15)}14%,26%{transform:translate(-50%,0) scale(1)}100%{transform:translate(-50%,-56px);opacity:0}}
+.coin{position:absolute;z-index:4;width:3.4cqw;height:3.4cqw;margin-left:-1.7cqw;background:#F2C14E;
+  box-shadow:inset -2px -2px 0 #B07A1A,inset 2px 2px 0 #FFE7A3;border:2px solid #6b4a12;border-radius:50%;
+  animation:coin .8s cubic-bezier(.3,.7,.5,1) forwards}
+@keyframes coin{0%{transform:translate(0,-6cqh)}40%{transform:translate(var(--x),0)}60%{transform:translate(calc(var(--x)*1.2),-1.6cqh)}80%,100%{transform:translate(calc(var(--x)*1.35),0)}}
+
+.under{position:relative;z-index:1;margin:14px 0 0;font-size:.85rem;text-wrap:balance;min-height:2.9em;color:var(--mint);text-align:center;max-width:26rem}
+.under b{color:var(--cream);font-weight:800}
+.under .th{font-family:"Sarabun",sans-serif;font-weight:700;color:var(--cream)}
+
+.foot{display:flex;flex-wrap:wrap;gap:6px 20px;font-size:.85rem;color:var(--mint)}
+.foot a{text-decoration:none}
+.foot a:hover{color:var(--cream);text-decoration:underline}
+.foot .sp{flex:1}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* 中寬（平板、小筆電）：「你的字」改放文案下方，手機在右 */
+@media (min-width:861px) and (max-width:1199px){
+  .main{grid-template-columns:minmax(0,1fr) auto;grid-template-rows:auto auto;column-gap:clamp(28px,5vw,56px);row-gap:28px;align-content:center}
+  .copy{grid-column:1;grid-row:1;align-self:end}
+  .words{grid-column:1;grid-row:2;align-self:start}
+  .stage-col{grid-column:2;grid-row:1 / span 2}
+  .slots{flex-direction:row;flex-wrap:wrap}
+  .slots li{width:calc(33.3% - 6px);height:48px}
+  .slots li:nth-child(n+4){display:none}
+  .keyline{display:none}
+  .tally{min-height:1.3em}
+  .ground{height:88px;background-size:1024px 88px,1024px 88px}
+  @keyframes drift{to{background-position:-2048px 100%,-1024px 100%}}
+  .srs{margin-bottom:1.4rem}
+}
+@media (max-width:860px){
+  .main{grid-template-columns:minmax(0,1fr);gap:12px;padding-top:8px}
+  .copy{display:contents}
+  h1{order:1;margin:0;font-size:clamp(2.3rem,11vw,3rem)}
+  .lede{order:2;margin:0}
+  .getbox{order:3}
+  .get{margin-bottom:0}
+  .getbox .fine{display:none}
+  .stage-col{order:4;margin-top:6px}
+  .words{display:none}
+  .ground{height:110px;background-size:1280px 110px,1280px 110px}
+  @keyframes drift{to{background-position:-2560px 100%,-1280px 100%}}
+  .srs{order:6;margin:8px 0 0}
+  .fine.m{display:block;order:7}
+  .phone{--h:calc(min(100vw - 72px,318px) * 2340 / 1080)}
+}
+@media (min-width:861px){.fine.m{display:none}}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001s!important;animation-iteration-count:1!important;transition-duration:.001s!important}
+}
+
+/* ── 右上角：切換語言 ── */
+.toplinks{display:flex;align-items:center;gap:6px 18px;flex-wrap:wrap;justify-content:flex-end;font-size:.9rem;font-weight:700;color:var(--mint)}
+.toplinks a{text-decoration:none;padding:6px 0}
+.toplinks a:hover{color:var(--cream);text-decoration:underline}
+
+/* ── 中文頁 ── */
+/* 中文標題用粉圓（跟 app 的中文介面一樣）。Dela Gothic One 的漢字是日本字形，中文標題不排它；中文不用負字距 */
+:lang(zh) .main h1,:lang(zh) .words h2{font-family:"Huninn",sans-serif}
+/* 粉圓只有一個字重：標題加描邊加粗，跟英文標題一樣有份量 */
+:lang(zh) .main h1{-webkit-text-stroke:.045em currentColor;paint-order:stroke fill}
+:lang(zh) .words h2{-webkit-text-stroke:.03em currentColor}
+/* 中文標題字比英文寬：大螢幕上字欄約 26rem，六個字＋句號要放得下一行 */
+:lang(zh) .main h1{letter-spacing:0;line-height:1.15;font-size:clamp(2.3rem,4vw,3.6rem)}
+:lang(zh) .page{font-family:"Nunito","Huninn",ui-rounded,system-ui,sans-serif}
