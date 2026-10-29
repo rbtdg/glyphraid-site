@@ -393,3 +393,26 @@ h1{
 /* 中文標題字比英文寬：大螢幕上字欄約 26rem，六個字＋句號要放得下一行 */
 :lang(zh) .main h1{letter-spacing:0;line-height:1.15;font-size:clamp(2.3rem,4vw,3.6rem)}
 :lang(zh) .page{font-family:"Nunito","Huninn",ui-rounded,system-ui,sans-serif}
+
+/* 電腦版：商店按鈕旁邊放 QR code，用手機掃了到 /get/，依平台轉去對的商店（assets/get.js）。
+   字欄夠寬（430px＝兩個按鈕＋間距＋QR 的寬，再留一點）：QR 在按鈕右邊佔兩列、一行說明在按鈕下面，左欄只多一行字的高度
+   （整塊疊在按鈕下面的話，1280×720 的頁尾會被擠出畫面）。
+   字欄太窄（中寬版面、英文頁手機下方說明比較長的時候會發生）：QR 和說明改成按鈕下面一列，不然 QR 會被擠扁、掃不出來。
+   QR 固定 87px＝29 格×3px：每格要是整數 px，一般螢幕上才不會糊（tools/qr.py）。
+   手機、平板（沒有滑鼠）看不到：它們直接點上面的按鈕就好 */
+.qr{display:none}
+@media (min-width:861px) and (hover:hover) and (pointer:fine){
+  .getbox{container-type:inline-size}
+  .qr{display:flex;align-items:center;gap:14px;margin:0 0 14px}
+  .qr img{width:87px;height:87px;max-width:none;flex:none;image-rendering:pixelated}
+  .qr p{margin:0;font-size:.95rem;color:var(--mint);text-wrap:balance}
+  @container (min-width:430px){
+    .getin{display:grid;grid-template-columns:max-content 1fr;column-gap:20px}
+    .getin .get{grid-column:1;grid-row:1;margin:0;flex-wrap:nowrap}
+    .qr{display:contents}
+    .qr img{grid-column:2;grid-row:1 / span 2;align-self:start;justify-self:start}
+    .qr p{grid-column:1;grid-row:2;margin:8px 0 0}
+    .getin .fine{grid-column:1 / span 2;grid-row:3;margin-top:14px}
+  }
+  .srs{margin-bottom:1.4rem}
+}

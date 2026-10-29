@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 首頁電腦版 QR code 指向這頁：手機掃了由 assets/get.js 轉去對的商店；判斷不出來的裝置留在這頁看兩個按鈕。商店網址只寫在下面兩個按鈕上（get.js 讀它們的 href） -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>Get Glyphraid</title>
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://glyphraid.com/">
+<link rel="icon" type="image/png" href="../assets/favicon.png">
+<style>
+  body { margin: 0; min-height: 100svh; display: grid; place-content: center; gap: 20px; padding: 24px 16px; box-sizing: border-box;
+         background: #0E5C5F; color: #F3E3C3; font-family: ui-rounded, system-ui, -apple-system, sans-serif; text-align: center; }
+  .brand { display: flex; align-items: center; justify-content: center; gap: 10px; color: inherit; text-decoration: none; font-weight: 800; font-size: 1.2rem; }
+  .brand img { border-radius: 8px; }
+  p { margin: 0; }
+  .get { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+  .get img { height: 48px; width: auto; display: block; }
+  .home { color: #A6D6CB; font-size: .9rem; }
+</style>
+</head>
+<body>
+  <a class="brand" href="../"><img src="../assets/favicon.png" alt="" width="32" height="32">Glyphraid</a>
+  <p>Get the app <span lang="zh-Hant">· 下載 app</span></p>
+  <div class="get">
+    <a id="ios" href="https://apps.apple.com/app/id6785621868"><img src="../assets/badge-appstore.svg" alt="Download on the App Store" width="144" height="48"></a>
+    <a id="android" href="https://play.google.com/store/apps/details?id=com.terryouyang.glyphraid&amp;referrer=utm_source%3Dglyphraid_site%26utm_medium%3Dqr"><img src="../assets/badge-play-tight.png" alt="Get it on Google Play" width="161" height="48"></a>
+  </div>
+  <p><a class="home" href="../">glyphraid.com</a></p>
+  <script src="../assets/get.js"></script>
+</body>
+</html>
