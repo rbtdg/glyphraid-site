@@ -3,21 +3,23 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Glyphraid · Learn Thai by fighting monsters</title>
-<meta name="description" content="A Thai flashcard app for iPhone and Android. Every monster holds a Thai word: pick the right meaning to hit it, pick wrong and it hits you. The alphabet and 1008 everyday words, with audio. One payment, no ads, no subscription.">
-<meta name="theme-color" content="#0E5C5F">
-<!-- 內容安全政策：腳本只准本站的檔案（assets/demo.js）和雜湊相符的那一段內嵌腳本（語言）。⚠️ 改了內嵌 <script> 內容一定要跑 python3 tools/update-csp.py，否則會被瀏覽器擋掉 -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-tla+jNIBkIyBn4vj5KOFL4YFCMS+OBkEQ+i5kZb5u+k='; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; media-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<!-- ⚠️ 這頁由 tools/build-home.py 產生，不要手改。 -->
+<title>Glyphraid · Learn a language by fighting monsters</title>
+<meta name="description" content="A language learning game for iPhone and Android. Thai, Japanese, Korean, Spanish, French, German, Portuguese, Chinese, Italian, Indonesian and Turkish. Every monster holds a word card: answer it to strike, miss and it hits you. Free to start, one payment unlocks everything. No ads, no subscription.">
+<meta name="theme-color" content="#1D2A12">
+<!-- 內容安全政策：腳本只准本站的檔案（assets/site.js）和雜湊相符的那一段內嵌腳本（語言）。⚠️ 改了內嵌腳本一定要跑 python3 tools/update-csp.py -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-tla+jNIBkIyBn4vj5KOFL4YFCMS+OBkEQ+i5kZb5u+k='; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; media-src 'none'; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="apple-itunes-app" content="app-id=6785621868">
 <link rel="canonical" href="https://glyphraid.com/">
 <link rel="alternate" hreflang="en" href="https://glyphraid.com/">
 <link rel="alternate" hreflang="zh-Hant" href="https://glyphraid.com/zh/">
 <link rel="alternate" hreflang="x-default" href="https://glyphraid.com/">
-<!-- 語言：第一次來、瀏覽器第一語言是中文、沒選過 → 轉到 /zh/；右上角的切換連結帶 ?hl=，到了這頁才記住選擇（點、中鍵、開新分頁都一樣）；只有首頁會轉，隱私、刪除資料頁不轉 -->
+<!-- 語言：第一次來、瀏覽器第一語言是中文、沒選過 → 轉到 /zh/；右上角的切換連結帶 ?hl=，到了這頁才記住選擇；只有首頁會轉 -->
 <script>(function(){var k='glyphraid-lang',l,q=new URLSearchParams(location.search),h=q.get('hl');if(h==='en'||h==='zh'){l=h;try{localStorage.setItem(k,h)}catch(e){}q.delete('hl');var s=q.toString();history.replaceState(null,'',location.pathname+(s?'?'+s:'')+location.hash)}else{try{l=localStorage.getItem(k)}catch(e){}}if(document.documentElement.lang==='en'&&(l?l==='zh':/^zh/i.test((navigator.languages&&navigator.languages[0])||navigator.language||'')))location.replace('zh/'+location.search+location.hash)})();</script>
 
-<meta property="og:title" content="Glyphraid · Learn Thai by fighting monsters">
-<meta property="og:description" content="Every monster holds a Thai word. Pick the right meaning to hit it. Pick wrong and it hits you.">
+<meta property="og:title" content="Glyphraid · Learn a language by fighting monsters">
+<meta property="og:description" content="Every monster holds a word card. Answer it and you strike. Miss and it hits you.">
+<meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://glyphraid.com/assets/og.jpg">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
@@ -26,16 +28,14 @@
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="preload" as="font" type="font/woff2" href="assets/fonts/dela-gothic-one-400-latin.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="assets/fonts/nunito-latin.woff2" crossorigin>
-<link rel="preload" as="font" type="font/woff2" href="assets/huninn-latin.woff2" crossorigin>
-<link rel="preload" as="image" href="assets/bg_grove.webp">
-
+<link rel="preload" as="image" href="assets/v2/bg.webp">
 <link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
 <div class="page">
   <header class="top">
     <a class="brand" href="./" aria-label="Glyphraid home">
-      <img src="assets/favicon.png" alt="" width="32" height="32">
+      <img src="assets/favicon.png" alt="" width="36" height="36">
       <b>Glyphraid</b>
     </a>
     <nav class="toplinks"><a href="zh/?hl=zh" hreflang="zh-Hant" lang="zh-Hant" data-lang="zh">中文</a></nav>
@@ -43,102 +43,48 @@
 
   <main class="main">
     <div class="copy">
-      <h1>Learn Thai by fighting monsters.</h1>
-      <p class="lede">Every monster holds a Thai card. Answer it and you hit. Miss and it hits you.</p>
-      <!-- 「1、3、10 天」＝Vask config/progression-config.ts 的 REVIEW_INTERVAL_DAYS（familiar/mastered/proficient）。那邊改了這句要跟著改。 -->
-      <p class="srs">Every card you get right comes back later and later: after a day, then 3 days, then 10. The ones you miss come back soon.</p>
+      <h1>Learn a language by fighting monsters.</h1>
+      <p class="lede">Every monster holds a word card. Answer it and you strike. Miss and it hits you.</p>
+
+      <ul class="langs" aria-label="11 languages">
+        <li><svg viewBox="0 0 30 20" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="0.000" width="30" height="3.343" fill="#A51931"/><rect x="0" y="3.333" width="30" height="3.343" fill="#F4F5F8"/><rect x="0" y="6.667" width="30" height="3.343" fill="#2D2A4A"/><rect x="0" y="10.000" width="30" height="3.343" fill="#2D2A4A"/><rect x="0" y="13.333" width="30" height="3.343" fill="#F4F5F8"/><rect x="0" y="16.667" width="30" height="3.343" fill="#A51931"/></svg><b>Thai</b><span lang="th">สวัสดี</span></li>
+        <li><svg viewBox="0 0 30 20" preserveAspectRatio="none" aria-hidden="true"><rect width="30" height="20" fill="#FFFFFF"/><circle cx="15" cy="10" r="6" fill="#BC002D"/></svg><b>Japanese</b><span lang="ja">こんにちは</span></li>
+        <li><svg viewBox="0 0 30 20" preserveAspectRatio="none" aria-hidden="true"><rect width="30" height="20" fill="#AA151B"/><rect x="0" y="5" width="30" height="10" fill="#F1BF00"/></svg><b>Spanish</b><span lang="es">¡Hola!</span></li>
+        <li><svg viewBox="0 0 30 20" preserveAspectRatio="none" aria-hidden="true"><rect width="30" height="20" fill="#FFFFFF"/><path d="M10 10 A5 5 0 0 1 20 10 A2.5 2.5 0 0 1 15 10 A2.5 2.5 0 0 0 10 10 Z" fill="#CD2E3A"/><path d="M10 10 A5 5 0 0 0 20 10 A2.5 2.5 0 0 1 15 10 A2.5 2.5 0 0 0 10 10 Z" fill="#0047A0"/><path d="M4.5 4.2 h4 v0.8 h-4 Z M4.5 5.6 h4 v0.8 h-4 Z" fill="#000000" transform="rotate(-61 6.5 5.3)"/><path d="M21.5 4.2 h4 v0.8 h-4 Z M21.5 5.6 h4 v0.8 h-4 Z" fill="#000000" transform="rotate(61 23.5 5.3)"/><path d="M4.5 13.6 h4 v0.8 h-4 Z M4.5 15.0 h4 v0.8 h-4 Z" fill="#000000" transform="rotate(61 6.5 14.7)"/><path d="M21.5 13.6 h4 v0.8 h-4 Z M21.5 15.0 h4 v0.8 h-4 Z" fill="#000000" transform="rotate(-61 23.5 14.7)"/></svg><b>Korean</b><span lang="ko">안녕하세요</span></li>
+        <li><svg viewBox="0 0 30 20" preserveAspectRatio="none" aria-hidden="true"><rect x="0.000" y="0" width="10.010" height="20" fill="#0055A4"/><rect x="10.000" y="0" width="10.010" height="20" fill="#FFFFFF"/><rect x="20.000" y="0" width="10.010" height="20" fill="#EF4135"/></svg><b>French</b><span lang="fr">Bonjour</span></li>
+        <li><svg viewBox="0 0 30 20" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="0.000" width="30" height="6.677" fill="#000000"/><rect x="0" y="6.667" width="30" height="6.677" fill="#DD0000"/><rect x="0" y="13.333" width="30" height="6.677" fill="#FFCE00"/></svg><b>German</b><span lang="de">Hallo</span></li>
+        <li><svg viewBox="0 0 30 20" preserveAspectRatio="none" aria-hidden="true"><rect width="30" height="20" fill="#009C3B"/><polygon points="15,2.2 27.5,10 15,17.8 2.5,10" fill="#FFDF00"/><circle cx="15" cy="10" r="4.6" fill="#002776"/><path d="M10.6 9.2 Q15 7.6 19.5 10.6 L19.3 11.4 Q15 8.6 10.5 10 Z" fill="#FFFFFF"/></svg><b>Portuguese</b><span lang="pt-BR">Olá</span></li>
+        <li><svg viewBox="0 0 30 20" preserveAspectRatio="none" aria-hidden="true"><rect width="30" height="20" fill="#EE1C25"/><polygon points="5.00,2.00 5.67,4.07 7.85,4.07 6.09,5.35 6.76,7.43 5.00,6.15 3.24,7.43 3.91,5.35 2.15,4.07 4.33,4.07" fill="#FFFF00"/><polygon points="10.56,1.17 10.36,1.87 10.96,2.28 10.23,2.30 10.03,3.00 9.78,2.32 9.06,2.34 9.63,1.89 9.39,1.21 9.99,1.62" fill="#FFFF00"/><polygon points="12.89,3.55 12.38,4.06 12.71,4.71 12.06,4.38 11.55,4.89 11.66,4.17 11.01,3.84 11.73,3.73 11.84,3.01 12.17,3.66" fill="#FFFF00"/><polygon points="12.00,6.00 12.22,6.69 12.95,6.69 12.36,7.12 12.59,7.81 12.00,7.38 11.41,7.81 11.64,7.12 11.05,6.69 11.78,6.69" fill="#FFFF00"/><polygon points="10.48,8.12 10.35,8.84 10.98,9.18 10.26,9.28 10.13,9.99 9.82,9.34 9.10,9.43 9.62,8.93 9.31,8.27 9.95,8.62" fill="#FFFF00"/></svg><b>Chinese</b><span lang="zh-Hans">你好</span></li>
+        <li><svg viewBox="0 0 30 20" preserveAspectRatio="none" aria-hidden="true"><rect x="0.000" y="0" width="10.010" height="20" fill="#009246"/><rect x="10.000" y="0" width="10.010" height="20" fill="#FFFFFF"/><rect x="20.000" y="0" width="10.010" height="20" fill="#CE2B37"/></svg><b>Italian</b><span lang="it">Ciao</span></li>
+        <li><svg viewBox="0 0 30 20" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="0.000" width="30" height="10.010" fill="#CE1126"/><rect x="0" y="10.000" width="30" height="10.010" fill="#FFFFFF"/></svg><b>Indonesian</b><span lang="id">Halo</span></li>
+        <li><svg viewBox="0 0 30 20" preserveAspectRatio="none" aria-hidden="true"><rect width="30" height="20" fill="#E30A17"/><circle cx="11.2" cy="10" r="5" fill="#FFFFFF"/><circle cx="12.45" cy="10" r="4" fill="#E30A17"/><polygon points="15.50,10.00 16.95,9.53 16.95,8.00 17.85,9.24 19.30,8.77 18.40,10.00 19.30,11.23 17.85,10.76 16.95,12.00 16.95,10.47" fill="#FFFFFF"/></svg><b>Turkish</b><span lang="tr">Merhaba</span></li>
+      </ul>
+
       <div class="getbox" id="get">
-        <div class="getin">
-          <div class="get">
-            <a href="https://apps.apple.com/app/id6785621868"><img src="assets/badge-appstore.svg" alt="Download on the App Store" width="144" height="48"></a>
-            <a href="https://play.google.com/store/apps/details?id=com.terryouyang.glyphraid&amp;referrer=utm_source%3Dglyphraid_site%26utm_medium%3Dweb"><img src="assets/badge-play-tight.png" alt="Get it on Google Play" width="161" height="48"></a>
-          </div>
-          <!-- 只給電腦版看（site.css 的 .qr）：手機掃了到 /get/，依平台轉去商店。圖由 tools/qr.py 產生 -->
-          <div class="qr"><img src="assets/qr-get.svg" alt="QR code that opens glyphraid.com/get on your phone" width="87" height="87"><p>Scan with your phone to download.</p></div>
-          <p class="fine">The Thai alphabet and 1008 everyday words, all with audio. <b>Free to start.</b> One payment of US$9.99 unlocks everything. No ads, no subscription.</p>
+        <div class="get">
+          <a class="b-as" href="https://apps.apple.com/app/apple-store/id6785621868?pt=129099104&amp;ct=web&amp;mt=8"><img src="assets/badge-appstore.svg" alt="Download on the App Store" width="144" height="48"></a>
+          <a class="b-gp" href="https://play.google.com/store/apps/details?id=com.terryouyang.glyphraid&amp;referrer=utm_source%3Dglyphraid_site%26utm_medium%3Dweb"><img src="assets/badge-play-tight.png" alt="Get it on Google Play" width="161" height="48"></a>
         </div>
+        <!-- 只給電腦版看：手機掃了到 /get/，依平台轉去商店（tools/qr.py） -->
+        <div class="qr"><img src="assets/qr-get.svg" alt="QR code that opens glyphraid.com/get on your phone" width="87" height="87"><p>Scan with your phone to download.</p></div>
       </div>
+      <p class="price"><b>Free to start.</b> One payment of US$9.99 unlocks all 11 languages. No ads, no subscription.</p>
     </div>
 
-    <p class="fine m">The Thai alphabet and 1008 everyday words, all with audio. <b>Free to start.</b> One payment of US$9.99 unlocks everything. No ads, no subscription.</p>
+    <div class="stage">
+      <div class="phone"><img src="assets/v2/battle-en.webp" alt="The battle screen in the app: a monster takes a hit after a right answer." width="640" height="1391"></div>
+    </div>
 
-    <section class="words" id="words" aria-labelledby="words-h">
-      <h2 id="words-h">Play the first fight.</h2>
-      <p class="how">Every letter you get right lands here.</p>
-      <ol class="slots" id="slots"><li class="next">Letters land here.</li><li></li><li></li><li></li><li></li></ol>
-      <p class="tally" id="tally" aria-live="polite"></p>
-      <div class="end">
-        <p>That was the app's real first fight. In the app your coins go to the shop next, then you pick a relic and face the boss. After that come all 44 consonants, the vowels, and 33 themes of everyday words.</p>
-        <div class="get">
-          <a href="https://apps.apple.com/app/id6785621868"><img src="assets/badge-appstore.svg" alt="Download on the App Store" width="102" height="34"></a>
-          <a href="https://play.google.com/store/apps/details?id=com.terryouyang.glyphraid&amp;referrer=utm_source%3Dglyphraid_site%26utm_medium%3Dfinish"><img src="assets/badge-play-tight.png" alt="Get it on Google Play" width="114" height="34"></a>
-        </div>
-        <button class="again" type="button" data-again>Play again</button>
-      </div>
-      <p class="keyline" aria-hidden="true"><span class="keys"><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><kbd>4</kbd></span> Keys pick the answers too.</p>
-    </section>
-
-    <div class="stage-col">
-      <div class="phone" role="region" aria-label="Playable copy of the app's battle screen">
-        <div class="screen" id="screen">
-          <div class="fade">
-            <div class="aim" aria-hidden="true"></div>
-            <div class="card" id="card">
-              <button class="bulb" id="bulb" type="button" aria-label="Look this card up">
-                <svg viewBox="-1 -1 9 12" shape-rendering="crispEdges" aria-hidden="true">
-                  <defs><path id="bulbshape" d="M2 0h3v1h1v1h1v3H6v1H5v3H4v1H3V9H2V6H1V5H0V2h1V1h1z"/></defs>
-                  <g fill="#3A2A18"><use href="#bulbshape" x="-1" y="-1"/><use href="#bulbshape" y="-1"/><use href="#bulbshape" x="1" y="-1"/><use href="#bulbshape" x="-1"/><use href="#bulbshape" x="1"/><use href="#bulbshape" x="-1" y="1"/><use href="#bulbshape" y="1"/><use href="#bulbshape" x="1" y="1"/></g>
-                  <path fill="#E8B04B" d="M2 0h3v1h1v1h1v3H6v1H5v1H2V6H1V5H0V2h1V1h1z"/>
-                  <path fill="#3A2A18" d="M2 7h3v2H4v1H3V9H2z"/>
-                </svg>
-              </button>
-              <span class="th" id="th" lang="th">ก</span>
-              <span class="mean" id="mean"></span>
-            </div>
-            <div class="mon" id="mon"><img id="monimg" src="assets/mon_thornhare.webp" alt="A monster" width="384" height="384"></div>
-            <div class="hp mhp" aria-hidden="true"><i id="monfill"></i><b id="monnum">3 / 3</b></div>
-          </div>
-          <div class="you" id="you" aria-hidden="true">
-            <svg viewBox="0 0 7 6" shape-rendering="crispEdges"><path fill="#1B1410" d="M1 0h2v1h1V0h2v1h1v3H6v1H5v1H2V5H1V4H0V1h1z"/><path fill="#E23B3B" d="M1 1h2v1h1V1h2v2H5v1H4v1H3V4H2V3H1z"/><path fill="#FF9A8A" d="M1 1h1v1H1z"/></svg>
-            <div class="hp"><i id="youfill"></i><b id="younum">10 / 10</b></div>
-          </div>
-          <div class="prompt" id="ask">Pick this letter's name</div>
-          <div class="panel" id="opts" role="group" aria-labelledby="ask"></div>
-
-          <div class="coach" id="coach" role="dialog" aria-modal="true" aria-labelledby="coachtext" tabindex="-1">
-            <div class="hole" id="hole"></div>
-            <div class="row" id="coachrow">
-              <img src="assets/mascot_point.webp" alt="" width="192" height="192">
-              <div class="bubble"><div id="coachtext"></div><small>Tap to continue</small></div>
-            </div>
-          </div>
-
-          <div class="detail" id="detail" role="dialog" aria-modal="true" aria-labelledby="dname">
-            <div class="box">
-              <div class="glyph" id="dglyph" lang="th"></div>
-              <button class="x" id="dclose" type="button" aria-label="Close">
-                <svg viewBox="0 0 7 7" shape-rendering="crispEdges" aria-hidden="true"><path fill="#3A2A18" d="M0 0h2v1h1v1h1V1h1V0h2v2H6v1H5v1h1v1h1v2H5V6H4V5H3v1H2v1H0V5h1V4h1V3H1V2H0z"/></svg>
-              </button>
-              <div class="rom" id="drom"></div>
-              <div class="name" id="dname"></div>
-              <button class="speak" id="dspeak" type="button">Speak</button>
-              <hr>
-              <ol id="dnotes"></ol>
-            </div>
-          </div>
-
-          <div class="retry" id="retry" role="dialog" aria-modal="true" aria-labelledby="retryh">
-            <div class="mid">
-              <img src="assets/mascot_cheer.webp" alt="" width="320" height="320">
-              <h3 id="retryh">Let's try this one again</h3>
-              <p>You keep every letter you've learned. Health restored. Go again.</p>
-            </div>
-            <button type="button" id="retrybtn">Try again</button>
-          </div>
-        </div>
-      </div>
-      <p class="under" id="under">A working copy of the app's first fight. Stuck on a letter? Tap the bulb.</p>
-      <p class="sr" id="live" aria-live="polite"></p>
+    <ul class="feats" aria-label="What is in the game">
+      <li><img src="assets/v2/feat-classes-3.webp" alt="The three classes: Archer, Swordsman and Mage." width="392" height="294" loading="lazy"><b>Pick a class</b><span>Archer, Swordsman or Mage</span></li>
+      <li><img src="assets/v2/feat-relics.webp" alt="Three relics from the game." width="392" height="294" loading="lazy"><b>Collect relics</b><span>50+ to find</span></li>
+      <li><img src="assets/v2/feat-boss-3.webp" alt="A bone hydra, the boss of the catacombs." width="392" height="294" loading="lazy"><b>Beat the boss</b><span>Can you beat the dungeon&#x27;s guardian?</span></li>
+      <li><img src="assets/v2/feat-words.webp" alt="Theme icons: food, animals, travel, chat, home, festivals." width="392" height="294" loading="lazy"><b>17,000+ word cards</b><span>Audio and notes on nearly every card</span></li>
+    </ul>
+    <!-- 只在手機版顯示：特點看完不用捲回頂端（site.css 的 .get-end） -->
+    <div class="get get-end">
+          <a class="b-as" href="https://apps.apple.com/app/apple-store/id6785621868?pt=129099104&amp;ct=finish&amp;mt=8"><img src="assets/badge-appstore.svg" alt="Download on the App Store" width="144" height="48"></a>
+          <a class="b-gp" href="https://play.google.com/store/apps/details?id=com.terryouyang.glyphraid&amp;referrer=utm_source%3Dglyphraid_site%26utm_medium%3Dfinish"><img src="assets/badge-play-tight.png" alt="Get it on Google Play" width="161" height="48"></a>
     </div>
   </main>
 
@@ -150,14 +96,6 @@
     <a href="delete-data.html">Delete my data</a>
   </footer>
 </div>
-<div class="ground" aria-hidden="true"></div>
-<div class="dock" id="dock" aria-hidden="true">
-  <ol id="dockwords"></ol>
-  <p id="docktext"></p>
-  <a id="dockcta" href="#get" tabindex="-1">Get the app</a>
-  <button class="again" type="button" data-again tabindex="-1">Play again</button>
-</div>
-
-<script src="assets/demo.js"></script>
+<script src="assets/site.js"></script>
 </body>
 </html>

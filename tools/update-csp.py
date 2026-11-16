@@ -1,5 +1,5 @@
 # 重算首頁（index.html、zh/index.html）內嵌腳本的 sha256，寫回 CSP 的 script-src。
-# 改了內嵌 <script> 內容之後必跑：CSP 只准執行本站的檔案（'self'，assets/demo.js）和雜湊相符的內嵌腳本，不跑＝那段腳本被瀏覽器擋掉。
+# 改了內嵌 <script> 內容之後必跑：CSP 只准執行本站的檔案（'self'，assets/site.js）和雜湊相符的內嵌腳本，不跑＝那段腳本被瀏覽器擋掉。
 # 隱私、刪除資料頁沒有腳本（script-src 'none'），不用跑。
 import base64, hashlib, os, re
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')

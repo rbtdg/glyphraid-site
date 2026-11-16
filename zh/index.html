@@ -1,25 +1,26 @@
 <!doctype html>
-<html lang="zh-Hant-TW">
+<html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Glyphraid｜打怪學泰文</title>
-<meta name="description" content="泰文字卡 app，iPhone、Android 都有。每隻怪都帶著一個泰文字：選對意思就打中牠，選錯就換牠打你。泰文字母和 1008 個日常單字，都有發音。一次買斷，沒有廣告、沒有訂閱。">
-<meta name="theme-color" content="#0E5C5F">
-<!-- 內容安全政策：腳本只准本站的檔案（assets/demo.js）和雜湊相符的那一段內嵌腳本（語言）。⚠️ 改了內嵌 <script> 內容一定要跑 python3 tools/update-csp.py，否則會被瀏覽器擋掉 -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-tla+jNIBkIyBn4vj5KOFL4YFCMS+OBkEQ+i5kZb5u+k='; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; media-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<!-- ⚠️ 這頁由 tools/build-home.py 產生，不要手改。 -->
+<title>Glyphraid｜打怪學語言</title>
+<meta name="description" content="語言學習遊戲，iPhone、Android 都有。泰文、日文、英文、韓文、西班牙文、法文、德文、葡萄牙文、義大利文、印尼文、土耳其文。每隻怪都帶著一張字卡：答對你打牠，答錯牠打你。免費開始，一次付費解鎖全部，沒有廣告、沒有訂閱。">
+<meta name="theme-color" content="#1D2A12">
+<!-- 內容安全政策：腳本只准本站的檔案（assets/site.js）和雜湊相符的那一段內嵌腳本（語言）。⚠️ 改了內嵌腳本一定要跑 python3 tools/update-csp.py -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-tla+jNIBkIyBn4vj5KOFL4YFCMS+OBkEQ+i5kZb5u+k='; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; media-src 'none'; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="apple-itunes-app" content="app-id=6785621868">
 <link rel="canonical" href="https://glyphraid.com/zh/">
 <link rel="alternate" hreflang="en" href="https://glyphraid.com/">
 <link rel="alternate" hreflang="zh-Hant" href="https://glyphraid.com/zh/">
 <link rel="alternate" hreflang="x-default" href="https://glyphraid.com/">
-<!-- 語言：跟英文首頁同一段（中文頁不轉；網址帶 ?hl= 時記住選擇） -->
+<!-- 語言：第一次來、瀏覽器第一語言是中文、沒選過 → 轉到 /zh/；右上角的切換連結帶 ?hl=，到了這頁才記住選擇；只有首頁會轉 -->
 <script>(function(){var k='glyphraid-lang',l,q=new URLSearchParams(location.search),h=q.get('hl');if(h==='en'||h==='zh'){l=h;try{localStorage.setItem(k,h)}catch(e){}q.delete('hl');var s=q.toString();history.replaceState(null,'',location.pathname+(s?'?'+s:'')+location.hash)}else{try{l=localStorage.getItem(k)}catch(e){}}if(document.documentElement.lang==='en'&&(l?l==='zh':/^zh/i.test((navigator.languages&&navigator.languages[0])||navigator.language||'')))location.replace('zh/'+location.search+location.hash)})();</script>
 
-<meta property="og:title" content="Glyphraid｜打怪學泰文">
+<meta property="og:title" content="Glyphraid｜打怪學語言">
+<meta property="og:description" content="每隻怪都帶著一張字卡。答對你打牠，答錯牠打你。">
 <meta property="og:locale" content="zh_TW">
-<meta property="og:description" content="每隻怪都帶著一個泰文字。選對就打中牠，選錯就換牠打你。">
-<meta property="og:image" content="https://glyphraid.com/assets/og.jpg">
+<meta property="og:image" content="https://glyphraid.com/assets/og-zh.jpg">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 
@@ -27,17 +28,14 @@
 <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
 <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/dela-gothic-one-400-latin.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/nunito-latin.woff2" crossorigin>
-<link rel="preload" as="font" type="font/woff2" href="../assets/huninn-latin.woff2" crossorigin>
-<link rel="preload" as="font" type="font/woff2" href="../assets/huninn-zh.woff2" crossorigin>
-<link rel="preload" as="image" href="../assets/bg_grove.webp">
-
+<link rel="preload" as="image" href="../assets/v2/bg.webp">
 <link rel="stylesheet" href="../assets/site.css">
 </head>
-<body>
+<body class="zh">
 <div class="page">
   <header class="top">
     <a class="brand" href="./" aria-label="Glyphraid 首頁">
-      <img src="../assets/favicon.png" alt="" width="32" height="32">
+      <img src="../assets/favicon.png" alt="" width="36" height="36">
       <b>Glyphraid</b>
     </a>
     <nav class="toplinks"><a href="../?hl=en" hreflang="en" lang="en" data-lang="en">English</a></nav>
@@ -45,102 +43,48 @@
 
   <main class="main">
     <div class="copy">
-      <h1>打怪學泰文。</h1>
-      <p class="lede">每隻怪都帶著一張泰文字卡。答對你打牠，答錯牠打你。</p>
-      <!-- 「1、3、10 天」＝Vask config/progression-config.ts 的 REVIEW_INTERVAL_DAYS（familiar/mastered/proficient）。那邊改了這句要跟著改。 -->
-      <p class="srs">答對的字會隔越久再出現：隔一天、三天、十天。答錯的很快就會再來。</p>
+      <h1>打怪學語言</h1>
+      <p class="lede"><span class="nb">每隻怪都帶著一張字卡。</span><span class="nb">答對你打牠，</span><span class="nb">答錯牠打你。</span></p>
+
+      <ul class="langs" aria-label="11 種語言">
+        <li><svg viewBox="0 0 30 20" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="0.000" width="30" height="3.343" fill="#A51931"/><rect x="0" y="3.333" width="30" height="3.343" fill="#F4F5F8"/><rect x="0" y="6.667" width="30" height="3.343" fill="#2D2A4A"/><rect x="0" y="10.000" width="30" height="3.343" fill="#2D2A4A"/><rect x="0" y="13.333" width="30" height="3.343" fill="#F4F5F8"/><rect x="0" y="16.667" width="30" height="3.343" fill="#A51931"/></svg><b>泰文</b><span lang="th">สวัสดี</span></li>
+        <li><svg viewBox="0 0 30 20" preserveAspectRatio="none" aria-hidden="true"><rect width="30" height="20" fill="#FFFFFF"/><circle cx="15" cy="10" r="6" fill="#BC002D"/></svg><b>日文</b><span lang="ja">こんにちは</span></li>
+        <li><svg viewBox="0 0 30 20" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="0.000" width="30" height="1.548" fill="#B22234"/><rect x="0" y="1.538" width="30" height="1.548" fill="#FFFFFF"/><rect x="0" y="3.077" width="30" height="1.548" fill="#B22234"/><rect x="0" y="4.615" width="30" height="1.548" fill="#FFFFFF"/><rect x="0" y="6.154" width="30" height="1.548" fill="#B22234"/><rect x="0" y="7.692" width="30" height="1.548" fill="#FFFFFF"/><rect x="0" y="9.231" width="30" height="1.548" fill="#B22234"/><rect x="0" y="10.769" width="30" height="1.548" fill="#FFFFFF"/><rect x="0" y="12.308" width="30" height="1.548" fill="#B22234"/><rect x="0" y="13.846" width="30" height="1.548" fill="#FFFFFF"/><rect x="0" y="15.385" width="30" height="1.548" fill="#B22234"/><rect x="0" y="16.923" width="30" height="1.548" fill="#FFFFFF"/><rect x="0" y="18.462" width="30" height="1.548" fill="#B22234"/><rect x="0" y="0" width="12" height="10.769" fill="#3C3B6E"/><circle cx="1.8" cy="1.9" r="0.55" fill="#FFFFFF"/><circle cx="4.6" cy="1.9" r="0.55" fill="#FFFFFF"/><circle cx="7.4" cy="1.9" r="0.55" fill="#FFFFFF"/><circle cx="10.2" cy="1.9" r="0.55" fill="#FFFFFF"/><circle cx="1.8" cy="5.2" r="0.55" fill="#FFFFFF"/><circle cx="4.6" cy="5.2" r="0.55" fill="#FFFFFF"/><circle cx="7.4" cy="5.2" r="0.55" fill="#FFFFFF"/><circle cx="10.2" cy="5.2" r="0.55" fill="#FFFFFF"/><circle cx="1.8" cy="8.5" r="0.55" fill="#FFFFFF"/><circle cx="4.6" cy="8.5" r="0.55" fill="#FFFFFF"/><circle cx="7.4" cy="8.5" r="0.55" fill="#FFFFFF"/><circle cx="10.2" cy="8.5" r="0.55" fill="#FFFFFF"/></svg><b>英文</b><span lang="en">Hello</span></li>
+        <li><svg viewBox="0 0 30 20" preserveAspectRatio="none" aria-hidden="true"><rect width="30" height="20" fill="#AA151B"/><rect x="0" y="5" width="30" height="10" fill="#F1BF00"/></svg><b>西班牙文</b><span lang="es">¡Hola!</span></li>
+        <li><svg viewBox="0 0 30 20" preserveAspectRatio="none" aria-hidden="true"><rect width="30" height="20" fill="#FFFFFF"/><path d="M10 10 A5 5 0 0 1 20 10 A2.5 2.5 0 0 1 15 10 A2.5 2.5 0 0 0 10 10 Z" fill="#CD2E3A"/><path d="M10 10 A5 5 0 0 0 20 10 A2.5 2.5 0 0 1 15 10 A2.5 2.5 0 0 0 10 10 Z" fill="#0047A0"/><path d="M4.5 4.2 h4 v0.8 h-4 Z M4.5 5.6 h4 v0.8 h-4 Z" fill="#000000" transform="rotate(-61 6.5 5.3)"/><path d="M21.5 4.2 h4 v0.8 h-4 Z M21.5 5.6 h4 v0.8 h-4 Z" fill="#000000" transform="rotate(61 23.5 5.3)"/><path d="M4.5 13.6 h4 v0.8 h-4 Z M4.5 15.0 h4 v0.8 h-4 Z" fill="#000000" transform="rotate(61 6.5 14.7)"/><path d="M21.5 13.6 h4 v0.8 h-4 Z M21.5 15.0 h4 v0.8 h-4 Z" fill="#000000" transform="rotate(-61 23.5 14.7)"/></svg><b>韓文</b><span lang="ko">안녕하세요</span></li>
+        <li><svg viewBox="0 0 30 20" preserveAspectRatio="none" aria-hidden="true"><rect x="0.000" y="0" width="10.010" height="20" fill="#0055A4"/><rect x="10.000" y="0" width="10.010" height="20" fill="#FFFFFF"/><rect x="20.000" y="0" width="10.010" height="20" fill="#EF4135"/></svg><b>法文</b><span lang="fr">Bonjour</span></li>
+        <li><svg viewBox="0 0 30 20" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="0.000" width="30" height="6.677" fill="#000000"/><rect x="0" y="6.667" width="30" height="6.677" fill="#DD0000"/><rect x="0" y="13.333" width="30" height="6.677" fill="#FFCE00"/></svg><b>德文</b><span lang="de">Hallo</span></li>
+        <li><svg viewBox="0 0 30 20" preserveAspectRatio="none" aria-hidden="true"><rect width="30" height="20" fill="#009C3B"/><polygon points="15,2.2 27.5,10 15,17.8 2.5,10" fill="#FFDF00"/><circle cx="15" cy="10" r="4.6" fill="#002776"/><path d="M10.6 9.2 Q15 7.6 19.5 10.6 L19.3 11.4 Q15 8.6 10.5 10 Z" fill="#FFFFFF"/></svg><b>葡萄牙文</b><span lang="pt-BR">Olá</span></li>
+        <li><svg viewBox="0 0 30 20" preserveAspectRatio="none" aria-hidden="true"><rect x="0.000" y="0" width="10.010" height="20" fill="#009246"/><rect x="10.000" y="0" width="10.010" height="20" fill="#FFFFFF"/><rect x="20.000" y="0" width="10.010" height="20" fill="#CE2B37"/></svg><b>義大利文</b><span lang="it">Ciao</span></li>
+        <li><svg viewBox="0 0 30 20" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="0.000" width="30" height="10.010" fill="#CE1126"/><rect x="0" y="10.000" width="30" height="10.010" fill="#FFFFFF"/></svg><b>印尼文</b><span lang="id">Halo</span></li>
+        <li><svg viewBox="0 0 30 20" preserveAspectRatio="none" aria-hidden="true"><rect width="30" height="20" fill="#E30A17"/><circle cx="11.2" cy="10" r="5" fill="#FFFFFF"/><circle cx="12.45" cy="10" r="4" fill="#E30A17"/><polygon points="15.50,10.00 16.95,9.53 16.95,8.00 17.85,9.24 19.30,8.77 18.40,10.00 19.30,11.23 17.85,10.76 16.95,12.00 16.95,10.47" fill="#FFFFFF"/></svg><b>土耳其文</b><span lang="tr">Merhaba</span></li>
+      </ul>
+
       <div class="getbox" id="get">
-        <div class="getin">
-          <div class="get">
-            <a href="https://apps.apple.com/app/id6785621868"><img src="../assets/badge-appstore.svg" alt="在 App Store 下載" width="144" height="48"></a>
-            <a href="https://play.google.com/store/apps/details?id=com.terryouyang.glyphraid&amp;referrer=utm_source%3Dglyphraid_site%26utm_medium%3Dweb"><img src="../assets/badge-play-tight.png" alt="在 Google Play 下載" width="161" height="48"></a>
-          </div>
-          <!-- 只給電腦版看（site.css 的 .qr）：手機掃了到 /get/，依平台轉去商店。圖由 tools/qr.py 產生 -->
-          <div class="qr"><img src="../assets/qr-get.svg" alt="用手機開 glyphraid.com/get 的 QR code" width="87" height="87"><p>用手機掃描就能下載。</p></div>
-          <p class="fine">泰文字母和 1008 個日常單字，每個都有發音。<b>免費開始。</b>一次付費解鎖全部，沒有廣告、沒有訂閱。</p>
+        <div class="get">
+          <a class="b-as" href="https://apps.apple.com/app/apple-store/id6785621868?pt=129099104&amp;ct=web&amp;mt=8"><img src="../assets/badge-appstore.svg" alt="在 App Store 下載" width="144" height="48"></a>
+          <a class="b-gp" href="https://play.google.com/store/apps/details?id=com.terryouyang.glyphraid&amp;referrer=utm_source%3Dglyphraid_site%26utm_medium%3Dweb"><img src="../assets/badge-play-tight.png" alt="在 Google Play 下載" width="161" height="48"></a>
         </div>
+        <!-- 只給電腦版看：手機掃了到 /get/，依平台轉去商店（tools/qr.py） -->
+        <div class="qr"><img src="../assets/qr-get.svg" alt="用手機掃描，打開 glyphraid.com/get" width="87" height="87"><p>用手機掃描下載。</p></div>
       </div>
+      <p class="price"><b>免費開始。</b><span class="nb">一次付費 US$9.99，</span><span class="nb">11 種語言全部解鎖。</span><span class="nb">沒有廣告、</span><span class="nb">沒有訂閱。</span></p>
     </div>
 
-    <p class="fine m">泰文字母和 1008 個日常單字，每個都有發音。<b>免費開始。</b>一次付費解鎖全部，沒有廣告、沒有訂閱。</p>
+    <div class="stage">
+      <div class="phone"><img src="../assets/v2/battle-zh.webp" alt="app 的戰鬥畫面：答對之後怪物被打中。" width="640" height="1391"></div>
+    </div>
 
-    <section class="words" id="words" aria-labelledby="words-h">
-      <h2 id="words-h">打打看第一場。</h2>
-      <p class="how">答對的字母會落在這裡。</p>
-      <ol class="slots" id="slots"><li class="next">字母落在這裡</li><li></li><li></li><li></li><li></li></ol>
-      <p class="tally" id="tally" aria-live="polite"></p>
-      <div class="end">
-        <p>這就是 app 裡真正的第一場。在 app 裡，接著拿金幣去商店，再選一個聖物、打強怪。之後還有全部 44 個子音、母音，和 33 個日常單字主題。</p>
-        <div class="get">
-          <a href="https://apps.apple.com/app/id6785621868"><img src="../assets/badge-appstore.svg" alt="在 App Store 下載" width="102" height="34"></a>
-          <a href="https://play.google.com/store/apps/details?id=com.terryouyang.glyphraid&amp;referrer=utm_source%3Dglyphraid_site%26utm_medium%3Dfinish"><img src="../assets/badge-play-tight.png" alt="在 Google Play 下載" width="114" height="34"></a>
-        </div>
-        <button class="again" type="button" data-again>再玩一次</button>
-      </div>
-      <p class="keyline" aria-hidden="true"><span class="keys"><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><kbd>4</kbd></span> 鍵盤也能選答案。</p>
-    </section>
-
-    <div class="stage-col">
-      <div class="phone" role="region" aria-label="app 戰鬥畫面的可玩複本">
-        <div class="screen" id="screen">
-          <div class="fade">
-            <div class="aim" aria-hidden="true"></div>
-            <div class="card" id="card">
-              <button class="bulb" id="bulb" type="button" aria-label="這個字的說明">
-                <svg viewBox="-1 -1 9 12" shape-rendering="crispEdges" aria-hidden="true">
-                  <defs><path id="bulbshape" d="M2 0h3v1h1v1h1v3H6v1H5v3H4v1H3V9H2V6H1V5H0V2h1V1h1z"/></defs>
-                  <g fill="#3A2A18"><use href="#bulbshape" x="-1" y="-1"/><use href="#bulbshape" y="-1"/><use href="#bulbshape" x="1" y="-1"/><use href="#bulbshape" x="-1"/><use href="#bulbshape" x="1"/><use href="#bulbshape" x="-1" y="1"/><use href="#bulbshape" y="1"/><use href="#bulbshape" x="1" y="1"/></g>
-                  <path fill="#E8B04B" d="M2 0h3v1h1v1h1v3H6v1H5v1H2V6H1V5H0V2h1V1h1z"/>
-                  <path fill="#3A2A18" d="M2 7h3v2H4v1H3V9H2z"/>
-                </svg>
-              </button>
-              <span class="th" id="th" lang="th">ก</span>
-              <span class="mean" id="mean"></span>
-            </div>
-            <div class="mon" id="mon"><img id="monimg" src="../assets/mon_thornhare.webp" alt="一隻怪" width="384" height="384"></div>
-            <div class="hp mhp" aria-hidden="true"><i id="monfill"></i><b id="monnum">3 / 3</b></div>
-          </div>
-          <div class="you" id="you" aria-hidden="true">
-            <svg viewBox="0 0 7 6" shape-rendering="crispEdges"><path fill="#1B1410" d="M1 0h2v1h1V0h2v1h1v3H6v1H5v1H2V5H1V4H0V1h1z"/><path fill="#E23B3B" d="M1 1h2v1h1V1h2v2H5v1H4v1H3V4H2V3H1z"/><path fill="#FF9A8A" d="M1 1h1v1H1z"/></svg>
-            <div class="hp"><i id="youfill"></i><b id="younum">10 / 10</b></div>
-          </div>
-          <div class="prompt" id="ask">選出這個字母的全名</div>
-          <div class="panel" id="opts" role="group" aria-labelledby="ask"></div>
-
-          <div class="coach" id="coach" role="dialog" aria-modal="true" aria-labelledby="coachtext" tabindex="-1">
-            <div class="hole" id="hole"></div>
-            <div class="row" id="coachrow">
-              <img src="../assets/mascot_point.webp" alt="" width="192" height="192">
-              <div class="bubble"><div id="coachtext"></div><small>點一下繼續</small></div>
-            </div>
-          </div>
-
-          <div class="detail" id="detail" role="dialog" aria-modal="true" aria-labelledby="dname">
-            <div class="box">
-              <div class="glyph" id="dglyph" lang="th"></div>
-              <button class="x" id="dclose" type="button" aria-label="關閉">
-                <svg viewBox="0 0 7 7" shape-rendering="crispEdges" aria-hidden="true"><path fill="#3A2A18" d="M0 0h2v1h1v1h1V1h1V0h2v2H6v1H5v1h1v1h1v2H5V6H4V5H3v1H2v1H0V5h1V4h1V3H1V2H0z"/></svg>
-              </button>
-              <div class="rom" id="drom"></div>
-              <div class="name" id="dname"></div>
-              <button class="speak" id="dspeak" type="button">發音</button>
-              <hr>
-              <ol id="dnotes"></ol>
-            </div>
-          </div>
-
-          <div class="retry" id="retry" role="dialog" aria-modal="true" aria-labelledby="retryh">
-            <div class="mid">
-              <img src="../assets/mascot_cheer.webp" alt="" width="320" height="320">
-              <h3 id="retryh">這一關再來一次</h3>
-              <p>學過的字一個都不會少。血補滿了，直接再打一次。</p>
-            </div>
-            <button type="button" id="retrybtn">再打一次</button>
-          </div>
-        </div>
-      </div>
-      <p class="under" id="under">這是 app 第一場的可玩複本。不認得的字，點燈泡。</p>
-      <p class="sr" id="live" aria-live="polite"></p>
+    <ul class="feats" aria-label="遊戲裡有什麼">
+      <li><img src="../assets/v2/feat-classes-3.webp" alt="三種職業：弓手、劍士、法師。" width="392" height="294" loading="lazy"><b>選職業</b><span><span class="nb">弓手、</span><span class="nb">劍士、</span><span class="nb">法師</span></span></li>
+      <li><img src="../assets/v2/feat-relics.webp" alt="遊戲裡的三顆聖物。" width="392" height="294" loading="lazy"><b>收集聖物</b><span><span class="nb">超過 50 種可以收集</span></span></li>
+      <li><img src="../assets/v2/feat-boss-3.webp" alt="地下墓穴的魔王：骨頭九頭蛇。" width="392" height="294" loading="lazy"><b>打倒魔王</b><span><span class="nb">你能打敗</span><span class="nb">地城的守門人嗎？</span></span></li>
+      <li><img src="../assets/v2/feat-words.webp" alt="主題圖示：食物、動物、旅行、聊天、家、節慶。" width="392" height="294" loading="lazy"><b><span class="nb">超過</span> <span class="nb">17,000 張字卡</span></b><span><span class="nb">每張都有發音，</span><span class="nb">幾乎每張都有說明</span></span></li>
+    </ul>
+    <!-- 只在手機版顯示：特點看完不用捲回頂端（site.css 的 .get-end） -->
+    <div class="get get-end">
+          <a class="b-as" href="https://apps.apple.com/app/apple-store/id6785621868?pt=129099104&amp;ct=finish&amp;mt=8"><img src="../assets/badge-appstore.svg" alt="在 App Store 下載" width="144" height="48"></a>
+          <a class="b-gp" href="https://play.google.com/store/apps/details?id=com.terryouyang.glyphraid&amp;referrer=utm_source%3Dglyphraid_site%26utm_medium%3Dfinish"><img src="../assets/badge-play-tight.png" alt="在 Google Play 下載" width="161" height="48"></a>
     </div>
   </main>
 
@@ -152,14 +96,6 @@
     <a href="delete-data.html">刪除我的資料</a>
   </footer>
 </div>
-<div class="ground" aria-hidden="true"></div>
-<div class="dock" id="dock" aria-hidden="true">
-  <ol id="dockwords"></ol>
-  <p id="docktext"></p>
-  <a id="dockcta" href="#get" tabindex="-1">下載 app</a>
-  <button class="again" type="button" data-again tabindex="-1">再玩一次</button>
-</div>
-
-<script src="../assets/demo.js"></script>
+<script src="../assets/site.js"></script>
 </body>
 </html>
