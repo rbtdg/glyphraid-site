@@ -8,7 +8,7 @@
 #     （Vask .claude/skills/store-screenshots/custom.py 的 LANGS／LANGS_ZH）。
 #   ‧ 語言清單照 app 該介面語言的選語言頁：英文介面有簡中、沒有英文；中文介面有英文、沒有簡中（兩邊都是 11 種）。
 #   ‧ 圖全部是 app 真實截圖或 app 素材（assets/v2/）。特點四格＝app 的美術素材組合（Terry 11/16：不用硬塞截圖，
-#     放符合說明、整體好看的）：職業頭像、聖物圖示、魔王 bonehydra＋它在 app 裡的 catacomb 魔王背景（配對見 Vask config/art-sets.ts）、
+#     放符合說明、整體好看的）：職業頭像、聖物圖示、魔王 briarhulk（Terry 11/16 指定）＋它在 app 裡的 grove 魔王背景（配對見 Vask config/art-sets.ts）、
 #     主題圖示，背景是 app 的戰鬥背景上半部。
 #     產生方式與素材路徑記在 Vask docs/rounds/2026-11-16-site-v2.md。
 import html, os
@@ -95,10 +95,10 @@ PAGES = {
         feats_label='What is in the game',
         feats=[('classes', 'feat-classes-3.webp', 'Pick a class', 'Archer, Swordsman or Mage'),
                ('relics', 'feat-relics.webp', 'Collect relics', '50+ to find'),
-               ('boss', 'feat-boss-3.webp', 'Beat the boss', "Can you beat the dungeon's guardian?"),
+               ('boss', 'feat-boss-4.webp', 'Beat the boss', "Can you beat the dungeon's guardian?"),
                ('words', 'feat-words.webp', '17,000+ word cards', 'Audio and notes on nearly every card')],
         feat_alts={'classes': 'The three classes: Archer, Swordsman and Mage.',
-                   'relics': 'Three relics from the game.', 'boss': 'A bone hydra, the boss of the catacombs.',
+                   'relics': 'Three relics from the game.', 'boss': 'The Briar Hulk, a forest boss.',
                    'words': 'Theme icons: food, animals, travel, chat, home, festivals.'},
         foot='© 2026 Glyphraid. Made by one person learning Thai.',
         privacy='Privacy', delete='Delete my data',
@@ -127,10 +127,10 @@ PAGES = {
         feats_label='遊戲裡有什麼',
         feats=[('classes', 'feat-classes-3.webp', '選職業', '弓手、劍士、法師'),
                ('relics', 'feat-relics.webp', '收集聖物', '超過 50 種可以收集'),
-               ('boss', 'feat-boss-3.webp', '打倒魔王', '你能打敗|地城的守門人嗎？'),
+               ('boss', 'feat-boss-4.webp', '打倒魔王', '你能打敗|地城的守門人嗎？'),
                ('words', 'feat-words.webp', '超過|17,000 張字卡', '每張都有發音，幾乎每張都有說明')],
         feat_alts={'classes': '三種職業：弓手、劍士、法師。', 'relics': '遊戲裡的三顆聖物。',
-                   'boss': '地下墓穴的魔王：骨頭九頭蛇。', 'words': '主題圖示：食物、動物、旅行、聊天、家、節慶。'},
+                   'boss': '森林的魔王：荊棘巨人。', 'words': '主題圖示：食物、動物、旅行、聊天、家、節慶。'},
         foot='© 2026 Glyphraid。一個正在學泰文的人做的。',
         privacy='隱私權政策', delete='刪除我的資料',
     ),
