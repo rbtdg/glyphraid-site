@@ -100,7 +100,8 @@ PAGES = {
         feat_alts={'classes': 'The three classes: Archer, Swordsman and Mage.',
                    'relics': 'Three relics from the game.', 'boss': 'The Briar Hulk, a forest boss.',
                    'words': 'Theme icons: food, animals, travel, chat, home, festivals.'},
-        foot='© 2026 Glyphraid. Made by one person learning Thai.',
+        foot='© 2026 Glyphraid.',
+        by='Made by Squirrel Park',
         privacy='Privacy', delete='Delete my data',
     ),
     'zh': dict(
@@ -131,7 +132,8 @@ PAGES = {
                ('words', 'feat-words.webp', '超過|17,000 張字卡', '每張都有發音，幾乎每張都有說明')],
         feat_alts={'classes': '三種職業：弓手、劍士、法師。', 'relics': '遊戲裡的三顆聖物。',
                    'boss': '森林的魔王：荊棘巨人。', 'words': '主題圖示：食物、動物、旅行、聊天、家、節慶。'},
-        foot='© 2026 Glyphraid。一個正在學泰文的人做的。',
+        foot='© 2026 Glyphraid。',
+        by='松鼠樂園出品',
         privacy='隱私權政策', delete='刪除我的資料',
     ),
 }
@@ -257,8 +259,9 @@ def page(p):
 
   <footer class="foot">
     <span>{esc(p['foot'])}</span>
+    <a href="https://squirrelpark.com">{esc(p['by'])}</a>
     <span class="sp"></span>
-    <a href="mailto:terry@glyphraid.com">terry@glyphraid.com</a>
+    <a href="mailto:hi@squirrelpark.com">hi@squirrelpark.com</a>
     <a href="privacy.html">{esc(p['privacy'])}</a>
     <a href="delete-data.html">{esc(p['delete'])}</a>
   </footer>
