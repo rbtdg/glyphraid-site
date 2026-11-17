@@ -77,7 +77,7 @@ PAGES = {
         title='Glyphraid · Learn a language by fighting monsters',
         desc=('A language learning game for iPhone and Android. Thai, Japanese, Korean, Spanish, French, German, Portuguese, '
               'Chinese, Italian, Indonesian and Turkish. Every monster holds a word card: answer it to strike, miss and it hits you. '
-              'Free to start, one payment unlocks everything. No ads, no subscription.'),
+              'Free to download, one payment unlocks everything. No ads, no subscription.'),
         og_desc='Every monster holds a word card. Answer it and you strike. Miss and it hits you.',
         og_locale='en_US',
         switch=('zh/?hl=zh', 'zh-Hant', 'zh', '中文'),
@@ -88,7 +88,7 @@ PAGES = {
         langs=[('thai', 'Thai'), ('japanese', 'Japanese'), ('spanish', 'Spanish'), ('korean', 'Korean'), ('french', 'French'),
                ('german', 'German'), ('portuguese', 'Portuguese'), ('chinese', 'Chinese'), ('italian', 'Italian'),
                ('indonesian', 'Indonesian'), ('turkish', 'Turkish')],
-        price='<b>Free to start.</b> One payment of US$9.99 unlocks all 11 languages. No ads, no subscription.',
+        price='<b>Free to download.</b> One payment of US$9.99 unlocks all 11 languages. No ads, no subscription.',
         badge_as='Download on the App Store', badge_gp='Get it on Google Play',
         qr_alt='QR code that opens glyphraid.com/get on your phone', qr_text='Scan with your phone to download.',
         phone_alt='The battle screen in the app: a monster takes a hit after a right answer.',
@@ -108,7 +108,7 @@ PAGES = {
         out='zh/index.html', up='../', html_lang='zh-Hant', canonical='https://glyphraid.com/zh/',
         title='Glyphraid｜打怪學語言',
         desc=('語言學習遊戲，iPhone、Android 都有。泰文、日文、英文、韓文、西班牙文、法文、德文、葡萄牙文、義大利文、印尼文、土耳其文。'
-              '每隻怪都帶著一張字卡：答對你打牠，答錯牠打你。免費開始，一次付費解鎖全部，沒有廣告、沒有訂閱。'),
+              '每隻怪都帶著一張字卡：答對你打牠，答錯牠打你。免費下載，一次付費解鎖全部，沒有廣告、沒有訂閱。'),
         og_desc='每隻怪都帶著一張字卡。答對你打牠，答錯牠打你。',
         og_locale='zh_TW',
         switch=('../?hl=en', 'en', 'en', 'English'),
@@ -119,8 +119,8 @@ PAGES = {
         langs=[('thai', '泰文'), ('japanese', '日文'), ('english', '英文'), ('spanish', '西班牙文'), ('korean', '韓文'),
                ('french', '法文'), ('german', '德文'), ('portuguese', '葡萄牙文'), ('italian', '義大利文'),
                ('indonesian', '印尼文'), ('turkish', '土耳其文')],
-        price='<b>免費開始。</b>一次付費 US$9.99，11 種語言全部解鎖。沒有廣告、沒有訂閱。',
-        price_zh_html=('<b>免費開始。</b><span class="nb">一次付費 US$9.99，</span><span class="nb">11 種語言全部解鎖。</span>'
+        price='<b>免費下載。</b>一次付費 US$9.99，11 種語言全部解鎖。沒有廣告、沒有訂閱。',
+        price_zh_html=('<b>免費下載。</b><span class="nb">一次付費 US$9.99，</span><span class="nb">11 種語言全部解鎖。</span>'
                        '<span class="nb">沒有廣告、</span><span class="nb">沒有訂閱。</span>'),
         badge_as='在 App Store 下載', badge_gp='在 Google Play 下載',
         qr_alt='用手機掃描，打開 glyphraid.com/get', qr_text='用手機掃描下載。',
