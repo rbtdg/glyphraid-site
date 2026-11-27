@@ -87,6 +87,15 @@ h1{
 .get a{display:block;line-height:0;border-radius:9px}
 .get a:hover{outline:2px solid var(--text);outline-offset:2px}
 .get img{height:48px;width:auto}
+/* Discord 鈕（2026-11-27）：跟商店鈕同高、同樣黑底細灰框；電腦版在第二行，手機只剩一顆商店鈕時排在它旁邊 */
+.get-br{flex-basis:100%;height:0}
+.is-ios .get-br,.is-android .get-br{display:none}
+.get .b-dc{display:flex;align-items:center;gap:8px;height:48px;box-sizing:border-box;padding:0 16px 0 12px;background:#000;border:1px solid #A6A6A6;color:#fff;text-decoration:none;font-weight:700;font-size:15px;line-height:1;white-space:nowrap}
+.get .b-dc img{height:24px;width:24px}
+.dc-short{display:none}
+/* 手機只剩一顆商店鈕：Discord 鈕只寫「Discord」，才排得進同一行（375 寬） */
+.is-ios .dc-long,.is-android .dc-long{display:none}
+.is-ios .dc-short,.is-android .dc-short{display:inline}
 .qr{display:none}
 .get-end{display:none}
 .price{margin:0;font-size:15px;line-height:1.45;color:var(--dim);text-shadow:var(--shadow);max-width:36em;text-wrap:balance}
@@ -95,6 +104,7 @@ h1{
 .is-ios .b-gp,.is-android .b-as{display:none}
 @media (hover:hover) and (pointer:fine) and (min-width:1024px){
   .qr{display:flex;align-items:center;gap:12px}
+  .get{max-width:330px} /* 兩顆商店鈕的寬：Discord 鈕換到第二行時，整組還是窄的，QR 碼留在右邊（2026-11-27） */
   .qr img{width:87px;height:87px;max-width:none;flex:none;image-rendering:pixelated;box-shadow:0 0 0 2px var(--edge)}
   .qr p{margin:0;font-size:14px;line-height:1.35;max-width:9em;color:var(--dim);text-shadow:var(--shadow)}
 }
@@ -177,6 +187,8 @@ h1{
   .getbox{order:3;margin-bottom:10px}
   .get a{flex:none}
   .is-ios .get img,.is-android .get img{height:56px}
+  .is-ios .get .b-dc,.is-android .get .b-dc{height:56px}
+  .is-ios .get .b-dc img,.is-android .get .b-dc img{height:24px}
   .price{order:4;font-size:14.5px;margin-bottom:26px}
   .stage{order:6;margin-bottom:30px}
   .phone{width:min(68vw,300px);padding:7px;border-radius:34px}

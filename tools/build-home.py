@@ -90,6 +90,7 @@ PAGES = {
                ('indonesian', 'Indonesian'), ('turkish', 'Turkish')],
         price='<b>Free to download.</b> One payment of US$9.99 unlocks all 11 languages. No ads, no subscription.',
         badge_as='Download on the App Store', badge_gp='Get it on Google Play',
+        discord='Join our Discord',
         qr_alt='QR code that opens glyphraid.com/get on your phone', qr_text='Scan with your phone to download.',
         phone_alt='The battle screen in the app: a monster takes a hit after a right answer.',
         feats_label='What is in the game',
@@ -123,6 +124,7 @@ PAGES = {
         price_zh_html=('<b>免費下載。</b><span class="nb">一次付費 US$9.99，</span><span class="nb">11 種語言全部解鎖。</span>'
                        '<span class="nb">沒有廣告、</span><span class="nb">沒有訂閱。</span>'),
         badge_as='在 App Store 下載', badge_gp='在 Google Play 下載',
+        discord='加入 Discord',
         qr_alt='用手機掃描，打開 glyphraid.com/get', qr_text='用手機掃描下載。',
         phone_alt='app 的戰鬥畫面：答對之後怪物被打中。',
         feats_label='遊戲裡有什麼',
@@ -174,10 +176,18 @@ def feats(p):
     return '\n      '.join(out)
 
 
-def badges(p, where):
+DISCORD = 'https://discord.gg/PhAySYwPmZ'  # 跟 app 的 services/community.ts、商店說明同一個連結
+
+
+def badges(p, where, discord=False):
     up = p['up']
-    return (f'<a class="b-as" href="{esc(appstore(where))}"><img src="{up}assets/badge-appstore.svg" alt="{esc(p["badge_as"])}" width="144" height="48"></a>\n'
-            f'          <a class="b-gp" href="{esc(play(where))}"><img src="{up}assets/badge-play-tight.png" alt="{esc(p["badge_gp"])}" width="161" height="48"></a>')
+    out = (f'<a class="b-as" href="{esc(appstore(where))}"><img src="{up}assets/badge-appstore.svg" alt="{esc(p["badge_as"])}" width="144" height="48"></a>\n'
+           f'          <a class="b-gp" href="{esc(play(where))}"><img src="{up}assets/badge-play-tight.png" alt="{esc(p["badge_gp"])}" width="161" height="48"></a>')
+    if discord:
+        # 電腦版：換到第二行（.get-br）；手機只剩一顆商店鈕時，跟它排同一行（site.css）
+        out += (f'\n          <span class="get-br" aria-hidden="true"></span>'
+                f'\n          <a class="b-dc" href="{DISCORD}" rel="noopener"><img src="{up}assets/discord.svg" alt="" width="24" height="24"><span class="dc-long">{esc(p["discord"])}</span><span class="dc-short">Discord</span></a>')
+    return out
 
 
 def page(p):
@@ -236,7 +246,7 @@ def page(p):
 
       <div class="getbox" id="get">
         <div class="get">
-          {badges(p, 'web')}
+          {badges(p, 'web', discord=True)}
         </div>
         <!-- 只給電腦版看：手機掃了到 /get/，依平台轉去商店（tools/qr.py） -->
         <div class="qr"><img src="{up}assets/qr-get.svg" alt="{esc(p['qr_alt'])}" width="87" height="87"><p>{esc(p['qr_text'])}</p></div>
